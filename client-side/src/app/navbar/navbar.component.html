@@ -1,0 +1,31 @@
+<nav class="navigation-sticky">
+    <div class="container-fluid">
+        <div class="navigation">
+            <div class="navigation__logo">
+                <a routerLink="/"><img height="100%" src="assets/logo.png" alt="logo"></a>
+            </div>
+            <div class="collapse-button">
+                <button class="button button_fill" (click)="toggle()">
+                    Меню
+                </button>
+            </div>
+            <div class="container-fluid row collapse-target" [ngClass]="{ 'collapse-target_show' : isExpanded }">
+                <div class="col-lg-6">
+                    <div class="navigation__group">
+                        <a class="group__item link" routerLink="/feed" routerLinkActive="link_active">Главная</a>
+                        <a class="group__item link" routerLink="/langs" routerLinkActive="link_active">Языки
+                            программирования</a>
+                        <a class="group__item link" routerLink="/tags" routerLinkActive="link_active">Теги</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="navigation__group navigation__group_side">
+                        <a class="group__item button button_fill" routerLink="/create">Новая запись</a>
+                        <a class="group__item button button_fill" routerLink="/search">Поиск</a>
+                        <a class="button" routerLink="/profile">Профиль</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
