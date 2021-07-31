@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Lang } from '../models/Lang';
 
 @Component({
-    selector: 'app-top-snippets',
-    templateUrl: './top-snippets.component.html',
-    styleUrls: ['./top-snippets.component.css']
+    selector: 'app-top-langs',
+    templateUrl: './top-langs.component.html',
+    styleUrls: ['./top-langs.component.css']
 })
-export class TopSnippetsComponent implements OnInit {
+export class TopLangsComponent implements OnInit {
     public langs!: Lang[];
 
     constructor() { }
