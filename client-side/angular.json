@@ -35,7 +35,10 @@
               "src/theme.less",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "highlight.js"
+            ]
           },
           "configurations": {
             "production": {
