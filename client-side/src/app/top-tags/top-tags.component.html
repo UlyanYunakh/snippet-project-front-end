@@ -1,0 +1,11 @@
+<div class="p-2 m-2 bg-white rounded">
+    <h5>Топ тегов:</h5>
+    <div *ngFor="let tag of tags">
+        <a class="link mx-2" [routerLink]="['/tags', tag.id]">
+            {{tag.name}}
+        </a>
+    </div>
+    <div *ngIf="!tags">
+        ...Загрузка
+    </div>
+</div>

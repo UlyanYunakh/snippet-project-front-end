@@ -1,1 +1,50 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import '~highlight.js/styles/github.css';
+.link {
+    font-weight: 500;
+    color: rgb(87, 87, 87);
+    text-decoration: none;
+    border-bottom: solid 2px rgb(255, 255, 255);
+    transition-property: all;
+    transition: ease-in-out 0.15s;
+}
+
+.link_nav {
+    color: #A8A8A8;
+}
+
+.link_active {
+    color: #BA0DFB;
+    border-bottom: solid 2px #BA0DFB;
+}
+
+.link:hover {
+    color: #BA0DFB;
+}
+
+.button {
+    font-weight: 500;
+    background-color: rgb(87, 87, 87);
+    color: rgb(255, 255, 255);
+    padding: 3px 8px;
+    border: solid 1.9px rgb(87, 87, 87);
+    border-radius: 8px;
+}
+
+.button_fill {
+    background-color: rgb(255, 255, 255);
+    color: rgb(87, 87, 87);
+}
+
+.button:hover {
+    box-shadow: 0px 0px 2px #A8A8A8;
+}
+
+a.button {
+    text-decoration: none;
+}
+
+a.button:hover {
+    color: rgb(87, 87, 87);
+    text-decoration: none;
+}

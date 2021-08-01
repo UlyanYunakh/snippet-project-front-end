@@ -1,4 +1,4 @@
 .site {
     background-image: url('/assets/background.png');
-    height: 5000px;
+    min-height: 100vh;
 }

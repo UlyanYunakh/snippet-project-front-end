@@ -1,1 +1,25 @@
-<p>feed works!</p>
+<div class="row">
+    <div class="col-lg-3">
+        <app-top-langs></app-top-langs>
+        <app-top-tags></app-top-tags>
+    </div>
+    <div class="col-lg-6">
+        <app-snippets-list [sortOption]="sortOption"></app-snippets-list>
+    </div>
+    <div class="col-lg-3">
+        <div class="p-2 m-2 bg-white rounded">
+            <button class="option p-1 my-1" (click)="setSortOption({ fieldName: 'date', sortDirection: 0 })">
+                Сначала новые
+            </button>
+            <button class="option p-1 my-1" (click)="setSortOption({ fieldName: 'date', sortDirection: 1 })">
+                Сначала старые
+            </button>
+            <button class="option p-1 my-1" (click)="setSortOption({ fieldName: 'likes', sortDirection: 0 })">
+                Сначала популярные
+            </button>
+            <button class="option p-1 my-1" (click)="setSortOption({ fieldName: 'likes', sortDirection: 1 })">
+                Сначала не популярные
+            </button>
+        </div>
+    </div>
+</div>
