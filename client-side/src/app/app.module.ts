@@ -23,6 +23,11 @@ import { LangsComponent } from './langs/langs.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateComponent } from './create/create.component';
+import { TopLangsComponent } from './top-langs/top-langs.component';
+import { TopTagsComponent } from './top-tags/top-tags.component';
+import { SnippetsListComponent } from './snippets-list/snippets-list.component';
+import { ShortSnippetComponent } from './short-snippet/short-snippet.component';
+import { SnippetComponent } from './snippet/snippet.component';
 
 registerLocaleData(ru);
 
@@ -35,7 +40,12 @@ registerLocaleData(ru);
         LangsComponent,
         SearchComponent,
         ProfileComponent,
-        CreateComponent
+        CreateComponent,
+        TopLangsComponent,
+        TopTagsComponent,
+        SnippetsListComponent,
+        ShortSnippetComponent,
+        SnippetComponent
     ],
     imports: [
         BrowserModule,
