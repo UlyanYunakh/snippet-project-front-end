@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
 import { NgZorroAntdProviderModule } from './ng-zorro-antd-provider.module';
 
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -42,9 +44,21 @@ registerLocaleData(ru);
         HttpClientModule,
         BrowserAnimationsModule,
         IconsProviderModule,
-        NgZorroAntdProviderModule
+        NgZorroAntdProviderModule,
+        HighlightModule
     ],
-    providers: [{ provide: NZ_I18N, useValue: ru_RU }],
+    providers: [
+        {
+            provide: NZ_I18N,
+            useValue: ru_RU
+        },
+        {
+            provide: HIGHLIGHT_OPTIONS,
+            useValue: {
+                fullLibraryLoader: () => import('highlight.js')
+            }
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
