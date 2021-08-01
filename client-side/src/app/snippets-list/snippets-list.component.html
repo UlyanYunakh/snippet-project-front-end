@@ -1,0 +1,6 @@
+<div *ngFor="let snippet of shortSnippets">
+    <app-short-snippet [snippet]="snippet"></app-short-snippet>
+</div>
+<div class="p-2 m-2 bg-white rounded" *ngIf="!shortSnippets">
+    ...Загрузка
+</div>
