@@ -9,11 +9,15 @@
     transition: ease-in-out 0.15s;
 }
 
-.link_nav {
+.link_active {
+    color: #BA0DFB;
+}
+
+.link-nav {
     color: #A8A8A8;
 }
 
-.link_active {
+.link-nav_active {
     color: #BA0DFB;
     border-bottom: solid 2px #BA0DFB;
 }
