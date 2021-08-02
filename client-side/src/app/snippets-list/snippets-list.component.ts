@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ShortSnippet } from '../models/ShortSnippet';
 import { SortOption } from '../models/SortOption';
 
@@ -7,14 +7,14 @@ import { SortOption } from '../models/SortOption';
     templateUrl: './snippets-list.component.html',
     styleUrls: ['./snippets-list.component.css']
 })
-export class SnippetsListComponent implements OnInit, OnChanges {
-    public shortSnippets!: ShortSnippet[];
+export class SnippetsListComponent implements OnInit {
+    public shortSnippets: ShortSnippet[] | undefined;
 
     @Input() public sortOption: SortOption = { fieldName: "date", sortDirection: 0 };
 
     constructor() { }
 
-    ngOnChanges() {
+    ngOnInit() {
         this.shortSnippets = [
             {
                 id: 1,
@@ -193,8 +193,4 @@ export class SnippetsListComponent implements OnInit, OnChanges {
             }
         ];
     }
-
-    ngOnInit(): void {
-    }
-
 }
