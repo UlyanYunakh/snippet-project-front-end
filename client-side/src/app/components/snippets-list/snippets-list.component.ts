@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpService } from '../../http.service';
+import { HttpService } from '../../services/http.service';
 import { ShortSnippet } from '../../models/ShortSnippet';
 import { Snippet } from '../../models/Snippet';
 import { SortOption } from '../../models/SortOption';
