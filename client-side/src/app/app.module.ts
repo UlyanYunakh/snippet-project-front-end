@@ -29,7 +29,7 @@ import { SnippetsListComponent } from './components/snippets-list/snippets-list.
 import { ShortSnippetComponent } from './components/short-snippet/short-snippet.component';
 import { SnippetComponent } from './components/snippet/snippet.component';
 import { LangComponent } from './components/lang/lang.component';
-import { SortComponent } from './sort/sort.component';
+import { SortComponent } from './components/sort/sort.component';
 
 registerLocaleData(ru);
 
