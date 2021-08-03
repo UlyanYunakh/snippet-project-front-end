@@ -4,22 +4,12 @@
         <app-top-tags></app-top-tags>
     </div>
     <div class="col-lg-6">
-        <app-snippets-list [sortOption]="sortOption"></app-snippets-list>
+        <h1>Sort: {{sortOption}}</h1>
+        <h1>Lang: {{langName}}</h1>
+        <h1>Tag: {{tagName}}</h1>
+        <app-snippets-list></app-snippets-list>
     </div>
     <div class="col-lg-3">
-        <div class="p-2 m-2 bg-white rounded">
-            <button class="option p-1 my-1" (click)="setSortOption({ fieldName: 'date', sortDirection: 0 })">
-                Сначала новые
-            </button>
-            <button class="option p-1 my-1" (click)="setSortOption({ fieldName: 'date', sortDirection: 1 })">
-                Сначала старые
-            </button>
-            <button class="option p-1 my-1" (click)="setSortOption({ fieldName: 'likes', sortDirection: 0 })">
-                Сначала популярные
-            </button>
-            <button class="option p-1 my-1" (click)="setSortOption({ fieldName: 'likes', sortDirection: 1 })">
-                Сначала не популярные
-            </button>
-        </div>
+        <app-sort [links]="links"></app-sort>
     </div>
 </div>
