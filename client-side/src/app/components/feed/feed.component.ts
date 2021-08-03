@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { SortLink } from '../models/SortLink';
+import { SortLink } from '../../models/SortLink';
 
 @Component({
     selector: 'app-feed',
