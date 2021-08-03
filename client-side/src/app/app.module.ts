@@ -28,7 +28,7 @@ import { TopTagsComponent } from './top-tags/top-tags.component';
 import { SnippetsListComponent } from './snippets-list/snippets-list.component';
 import { ShortSnippetComponent } from './short-snippet/short-snippet.component';
 import { SnippetComponent } from './snippet/snippet.component';
-import { LangComponent } from './lang/lang.component';
+import { LangComponent } from './components/lang/lang.component';
 import { SortComponent } from './sort/sort.component';
 
 registerLocaleData(ru);
