@@ -27,7 +27,7 @@ import { TopLangsComponent } from './top-langs/top-langs.component';
 import { TopTagsComponent } from './top-tags/top-tags.component';
 import { SnippetsListComponent } from './snippets-list/snippets-list.component';
 import { ShortSnippetComponent } from './components/short-snippet/short-snippet.component';
-import { SnippetComponent } from './snippet/snippet.component';
+import { SnippetComponent } from './components/snippet/snippet.component';
 import { LangComponent } from './components/lang/lang.component';
 import { SortComponent } from './sort/sort.component';
 

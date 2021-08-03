@@ -5,7 +5,7 @@ import { FeedComponent } from './components/feed/feed.component';
 import { LangsComponent } from './components/langs/langs.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SearchComponent } from './components/search/search.component';
-import { SnippetComponent } from './snippet/snippet.component';
+import { SnippetComponent } from './components/snippet/snippet.component';
 import { TagsComponent } from './tags/tags.component';
 
 const routes: Routes = [
