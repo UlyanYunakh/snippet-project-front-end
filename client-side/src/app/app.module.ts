@@ -21,7 +21,7 @@ import { FeedComponent } from './components/feed/feed.component';
 import { TagsComponent } from './tags/tags.component';
 import { LangsComponent } from './components/langs/langs.component';
 import { SearchComponent } from './search/search.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { CreateComponent } from './components/create/create.component';
 import { TopLangsComponent } from './top-langs/top-langs.component';
 import { TopTagsComponent } from './top-tags/top-tags.component';
