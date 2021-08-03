@@ -2,8 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ShortSnippet } from "./models/ShortSnippet";
-import { Snippet } from "./models/Snippet";
+import { ShortSnippet } from "../models/ShortSnippet";
+import { Snippet } from "../models/Snippet";
 
 @Injectable()
 export class HttpService {

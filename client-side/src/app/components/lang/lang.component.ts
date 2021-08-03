@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Lang } from '../models/Lang';
+import { Lang } from '../../models/Lang';
 
 @Component({
     selector: 'app-lang',

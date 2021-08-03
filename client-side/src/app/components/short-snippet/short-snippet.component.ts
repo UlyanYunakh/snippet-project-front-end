@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { ShortSnippet } from '../models/ShortSnippet';
+import { ShortSnippet } from '../../models/ShortSnippet';
 
 @Component({
     selector: 'app-short-snippet',

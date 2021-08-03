@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateComponent } from './create/create.component';
-import { FeedComponent } from './feed/feed.component';
-import { LangsComponent } from './langs/langs.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SearchComponent } from './search/search.component';
-import { SnippetComponent } from './snippet/snippet.component';
-import { TagsComponent } from './tags/tags.component';
+import { CreateComponent } from './components/create/create.component';
+import { FeedComponent } from './components/feed/feed.component';
+import { LangsComponent } from './components/langs/langs.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SearchComponent } from './components/search/search.component';
+import { SnippetComponent } from './components/snippet/snippet.component';
+import { TagsComponent } from './components/tags/tags.component';
 
 const routes: Routes = [
     { path: 'feed/:sortOption', component: FeedComponent },
