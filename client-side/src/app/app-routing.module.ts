@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateComponent } from './create/create.component';
+import { CreateComponent } from './components/create/create.component';
 import { FeedComponent } from './feed/feed.component';
 import { LangsComponent } from './langs/langs.component';
 import { ProfileComponent } from './profile/profile.component';

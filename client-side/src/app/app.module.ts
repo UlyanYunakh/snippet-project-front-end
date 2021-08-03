@@ -22,7 +22,7 @@ import { TagsComponent } from './tags/tags.component';
 import { LangsComponent } from './langs/langs.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
-import { CreateComponent } from './create/create.component';
+import { CreateComponent } from './components/create/create.component';
 import { TopLangsComponent } from './top-langs/top-langs.component';
 import { TopTagsComponent } from './top-tags/top-tags.component';
 import { SnippetsListComponent } from './snippets-list/snippets-list.component';
