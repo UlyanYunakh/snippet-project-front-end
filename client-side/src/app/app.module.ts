@@ -15,7 +15,7 @@ import { NgZorroAntdProviderModule } from './ng-zorro-antd-provider.module';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { TagsComponent } from './components/tags/tags.component';
