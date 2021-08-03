@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SortOption } from '../models/SortOption';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { SortLink } from '../models/SortLink';
 
 @Component({
     selector: 'app-feed',
@@ -7,16 +8,32 @@ import { SortOption } from '../models/SortOption';
     styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-    public sortOption: SortOption = { fieldName: "date", sortDirection: 0 };
+    public links: SortLink[] | undefined;
 
-    constructor() { }
+    public sortOption!: string;
+    public langName = "";
+    public tagName = "";
 
-    setSortOption(option: SortOption) {
-        this.sortOption = option;
+
+    constructor(private route: ActivatedRoute) {
+        this.links = [
+            {
+                optionLink: "/feed/new",
+                optionName: "Сначала новые"
+            },
+            {
+                optionLink: "/feed/popular",
+                optionName: "Сначала популарные"
+            }
+        ];
     }
 
     ngOnInit(): void {
-
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            this.sortOption = params.get('sortOption') ?? '';
+            this.langName = params.get('langName') ?? '';
+            this.tagName = params.get('tagName') ?? '';
+        });
     }
 
 }
