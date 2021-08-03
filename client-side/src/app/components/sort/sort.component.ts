@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SortLink } from '../models/SortLink';
+import { SortLink } from '../../models/SortLink';
 
 @Component({
   selector: 'app-sort',
