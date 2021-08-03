@@ -19,7 +19,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { TagsComponent } from './tags/tags.component';
-import { LangsComponent } from './langs/langs.component';
+import { LangsComponent } from './components/langs/langs.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateComponent } from './components/create/create.component';

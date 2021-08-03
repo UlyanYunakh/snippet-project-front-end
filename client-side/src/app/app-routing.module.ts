@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateComponent } from './components/create/create.component';
 import { FeedComponent } from './components/feed/feed.component';
-import { LangsComponent } from './langs/langs.component';
+import { LangsComponent } from './components/langs/langs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SearchComponent } from './search/search.component';
 import { SnippetComponent } from './snippet/snippet.component';
