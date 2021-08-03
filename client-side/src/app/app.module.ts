@@ -45,7 +45,14 @@ import { SortComponent } from './components/sort/sort.component';
         HttpClientModule,
         HighlightModule
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HIGHLIGHT_OPTIONS,
+            useValue: {
+                fullLibraryLoader: () => import('highlight.js')
+            }
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
