@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Snippet } from '../models/Snippet';
+import { Snippet } from '../../models/Snippet';
 
 @Component({
     selector: 'app-snippet',
