@@ -1,7 +1,7 @@
 <div class="p-2 m-2 bg-white rounded clickable" [routerLink]="['/feed', snippet.id]">
     <div class="d-flex flex-row">
         <div class="m-2">
-            <a class="link" [routerLink]="['/langs', snippet.languageId]">
+            <a class="link" [routerLink]="['/langs', snippet.language.name]">
                 {{snippet.language.name}}
             </a>
         </div>
@@ -9,7 +9,7 @@
             {{snippet.user.username}}
         </div>
         <div class="m-2 ms-auto text">
-            {{snippet.date.getUTCDate()}}.{{snippet.date.getUTCMonth()}}.{{snippet.date.getUTCFullYear()}}
+            {{snippet.date | date:'shortDate'}}
         </div>
     </div>
     <div class="m-2">
