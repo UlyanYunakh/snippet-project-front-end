@@ -2,9 +2,8 @@ import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http"
 import { Observable, throwError } from "rxjs";
 import { catchError, map, retry } from "rxjs/operators";
 import { environment } from "src/environments/environment";
-import { ParamsBase } from "../models/Params/ParamsBase";
 
-export class BaseService<T> {
+export abstract class BaseService<T> {
     protected url = environment.urlApi;
     protected path = "anyPath";
 
