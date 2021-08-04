@@ -21,8 +21,8 @@ export abstract class BaseService<T> {
         return JSON.parse(responce);
     }
 
-    public getMany(params: HttpParams): Observable<T[]> {
-        return this.http.get(`${this.url}/${this.path}/many`, { responseType: "text", params: params }).pipe(
+    public getMany(queryParams: HttpParams): Observable<T[]> {
+        return this.http.get(`${this.url}/${this.path}/many`, { responseType: "text", params: queryParams }).pipe(
             map(responce => this.getManyMap(responce)),
             retry(3),
             catchError(this.HandleError)
