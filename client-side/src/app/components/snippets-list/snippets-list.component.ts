@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
 import { ShortSnippet } from '../../models/ShortSnippet';
 import { Snippet } from '../../models/Snippet';
 import { SortOption } from '../../models/SortOption';
@@ -7,17 +6,17 @@ import { SortOption } from '../../models/SortOption';
 @Component({
     selector: 'app-snippets-list',
     templateUrl: './snippets-list.component.html',
-    providers: [HttpService]
+    providers: []
 })
 export class SnippetsListComponent implements OnInit {
     public shortSnippets: ShortSnippet[] | undefined;
 
     @Input() public sortOption: SortOption = { fieldName: "date", sortDirection: 0 };
 
-    constructor(private httpService: HttpService) { }
+    constructor() { }
 
     ngOnInit() {
-        this.httpService.getSnippet().subscribe(data => this.shortSnippets = data);
+        // this.httpService.getSnippet().subscribe(data => this.shortSnippets = data);
         // this.shortSnippets = [
         //     {
         //         id: 1,
