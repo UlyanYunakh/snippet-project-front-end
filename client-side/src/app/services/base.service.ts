@@ -1,7 +1,8 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError, map, retry } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { ParamsBase } from "../models/Params/ParamsBase";
 
 export class BaseService<T> {
     protected url = environment.urlApi;
@@ -18,6 +19,18 @@ export class BaseService<T> {
     }
 
     protected getMap(responce: string) {
+        return JSON.parse(responce);
+    }
+
+    public getMany(params: HttpParams): Observable<T[]> {
+        return this.http.get(`${this.url}/${this.path}/many`, { responseType: "text", params: params }).pipe(
+            map(responce => this.getManyMap(responce)),
+            retry(3),
+            catchError(this.HandleError)
+        );
+    }
+
+    protected getManyMap(responce: string) {
         return JSON.parse(responce);
     }
 
