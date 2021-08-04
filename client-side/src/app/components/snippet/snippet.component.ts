@@ -1,64 +1,45 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { SnippetService } from 'src/app/services/snippet.service';
 import { Snippet } from '../../models/Snippet';
 
 @Component({
     selector: 'app-snippet',
     templateUrl: './snippet.component.html',
-    styleUrls: ['./snippet.component.css']
+    styleUrls: ['./snippet.component.css'],
+    providers: [SnippetService]
 })
 export class SnippetComponent implements OnInit {
     public snippet!: Snippet;
+    public snippetId!: string;
 
-    constructor() { }
+    public isErrorOccured = false;
+    public errorMessage = "";
+
+    constructor(
+        private service: SnippetService,
+        private route: ActivatedRoute
+    ) { }
 
     ngOnInit(): void {
-        this.snippet = {
-            id: 1,
-            title: "Title",
-            description: "Very long long long long long long long long long long long long long long long long long long long long long long descriprion",
-            snippet: `internal static bool ValidateJson(string json)
-{
-    try
-    {
-        List<DictionaryItem> items = JsonConvert.DeserializeObject<List<DictionaryItem>>(json);
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            this.snippetId = params.get("snippetId")!;
+            this.getSnippet(this.snippetId);
+        });
     }
-    catch
-    {
-        return false;
-    }
-    return true;
-}`,
-            date: new Date,
-            languageId: 1,
-            language: {
-                id: 1,
-                name: "Lang"
+
+    public getSnippet(id: string) {
+        this.isErrorOccured = false;
+
+        this.service.get(id).subscribe(
+            responce => {
+                this.snippet = responce;
             },
-            userId: 1,
-            user: {
-                id: 1,
-                username: "Username"
-            },
-            like: 12,
-            tags: [
-                {
-                    id: 1,
-                    name: "#os"
-                },
-                {
-                    id: 2,
-                    name: "#windows"
-                },
-                {
-                    id: 3,
-                    name: "#algorithm"
-                },
-                {
-                    id: 4,
-                    name: "#othertag"
-                }
-            ]
-        };
+            error => {
+                this.errorMessage = error;
+                this.isErrorOccured = true;
+            }
+        );
     }
 
 }
