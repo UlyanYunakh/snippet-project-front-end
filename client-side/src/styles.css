@@ -1,5 +1,3 @@
-@import "~bootstrap/dist/css/bootstrap.min.css";
-@import '~highlight.js/styles/github.css';
 .link {
     font-weight: 500;
     color: rgb(87, 87, 87);
@@ -9,11 +7,15 @@
     transition: ease-in-out 0.15s;
 }
 
-.link_nav {
+.link_active {
+    color: #BA0DFB;
+}
+
+.link-nav {
     color: #A8A8A8;
 }
 
-.link_active {
+.link-nav_active {
     color: #BA0DFB;
     border-bottom: solid 2px #BA0DFB;
 }

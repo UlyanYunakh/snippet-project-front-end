@@ -1,7 +1,7 @@
 <div class="p-2 m-2 bg-white rounded clickable" [routerLink]="['/feed', snippet.id]">
     <div class="d-flex flex-row">
         <div class="m-2">
-            <a class="link" [routerLink]="['/langs', snippet.languageId]">
+            <a class="link" [routerLink]="['/langs', snippet.language.name]">
                 {{snippet.language.name}}
             </a>
         </div>
@@ -9,7 +9,7 @@
             {{snippet.user.username}}
         </div>
         <div class="m-2 ms-auto text">
-            {{snippet.date.getUTCDate()}}.{{snippet.date.getUTCMonth()}}.{{snippet.date.getUTCFullYear()}}
+            {{snippet.date | date:'shortDate'}}
         </div>
     </div>
     <div class="m-2">
@@ -18,13 +18,8 @@
         </h3>
         <p>
             {{snippet.description}}
-        </p>
-        <a></a>
-    </div>
-    <div class="m-2">
-        <pre>
-                <code [highlight]="snippet.snippet"></code>
-              </pre>
+        </p>    
+        <a ></a>
     </div>
     <div class="d-flex flex-row">
         <a class="link m-1 p-1" *ngFor="let tag of snippet.tags" [routerLink]="['/tags', tag.id]">
@@ -32,10 +27,9 @@
         </a>
     </div>
     <div class="d-flex">
-        <button class="group__item button button_fill">Share</button>
+        <a class="group__item button button_fill">Share</a>
         <div class="mx-2 ms-auto text">
             {{snippet.like}}
-            <button class="group__item button button_fill">Like</button>
         </div>
     </div>
 </div>
