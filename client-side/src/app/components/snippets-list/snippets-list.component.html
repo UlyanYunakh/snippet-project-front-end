@@ -1,6 +1,33 @@
-<div *ngFor="let snippet of shortSnippets">
-    <app-short-snippet [snippet]="snippet"></app-short-snippet>
-</div>
-<div class="p-2 m-2 bg-white rounded" *ngIf="!shortSnippets">
-    ...Загрузка
-</div>
+<div *ngIf="shortSnippets; then snippetsBlock; else loadingBlock"></div>
+
+<ng-template #snippetsBlock>
+    <div *ngFor="let snippet of shortSnippets">
+        <app-short-snippet [snippet]="snippet"></app-short-snippet>
+    </div>
+    <div class="d-flex flex-column align-items-center">
+        <button class="button button_fill" (click)="getShortSnippets()">
+            Загрузить ещё
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #loadingBlock>
+    <div *ngIf="isErrorOccured; then errorOccuredBlock; else executingBlock"></div>
+
+    <ng-template #errorOccuredBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            <p class="text-danger">
+                {{errorMessage}}
+            </p>
+            <button class="btn" (click)="getShortSnippets()">
+                Обновить
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #executingBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            ...Загрузка
+        </div>
+    </ng-template>
+</ng-template>
