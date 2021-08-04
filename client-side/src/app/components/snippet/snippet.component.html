@@ -1,41 +1,64 @@
-<div class="p-2 m-2 bg-white rounded clickable" [routerLink]="['/feed', snippet.id]">
-    <div class="d-flex flex-row">
+<div *ngIf="snippet; then snippetBlock; else loadingBlock"></div>
+
+<ng-template #snippetBlock>
+    <div class="p-2 m-2 bg-white rounded">
+        <div class="d-flex flex-row">
+            <div class="m-2">
+                <a class="link" [routerLink]="['/langs', snippet.language.id]">
+                    {{snippet.language.name}}
+                </a>
+            </div>
+            <div class="m-2 text">
+                {{snippet.user.username}}
+            </div>
+            <div class="m-2 ms-auto text">
+                {{snippet.date | date:"shortDate"}}
+            </div>
+        </div>
+
         <div class="m-2">
-            <a class="link" [routerLink]="['/langs', snippet.languageId]">
-                {{snippet.language.name}}
+            <h3>{{snippet.title}}</h3>
+            <p>{{snippet.description}}</p>
+        </div>
+
+        <pre class="m-2">
+            <code [highlight]="snippet.snippet"></code>
+        </pre>
+
+        <div class="d-flex flex-row">
+            <a class="link m-1 p-1" *ngFor="let tag of snippet.tags" [routerLink]="['/tags', tag.id]">
+                {{tag.name}}
             </a>
         </div>
-        <div class="m-2 text">
-            {{snippet.user.username}}
-        </div>
-        <div class="m-2 ms-auto text">
-            {{snippet.date.getUTCDate()}}.{{snippet.date.getUTCMonth()}}.{{snippet.date.getUTCFullYear()}}
-        </div>
-    </div>
-    <div class="m-2">
-        <h3>
-            {{snippet.title}}
-        </h3>
-        <p>
-            {{snippet.description}}
-        </p>
-        <a></a>
-    </div>
-    <div class="m-2">
-        <pre>
-                <code [highlight]="snippet.snippet"></code>
-              </pre>
-    </div>
-    <div class="d-flex flex-row">
-        <a class="link m-1 p-1" *ngFor="let tag of snippet.tags" [routerLink]="['/tags', tag.id]">
-            {{tag.name}}
-        </a>
-    </div>
-    <div class="d-flex">
-        <button class="group__item button button_fill">Share</button>
-        <div class="mx-2 ms-auto text">
-            {{snippet.like}}
-            <button class="group__item button button_fill">Like</button>
+
+        <div class="d-flex">
+            <button class="group__item button button_fill">Share</button>
+            <div class="mx-2 ms-auto text">
+                {{snippet.like}}
+                <button class="group__item button button_fill">Like</button>
+            </div>
         </div>
     </div>
-</div>
+</ng-template>
+
+<ng-template #loadingBlock>
+    <div *ngIf="isErrorOccured; then errorOccuredBlock; else executingBlock"></div>
+
+    <ng-template #errorOccuredBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            <p class="text-danger">
+                {{errorMessage}}
+            </p>
+            <button class="btn" (click)="getSnippet(snippetId)">
+                Обновить
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #executingBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            ...Загрузка
+        </div>
+    </ng-template>
+
+</ng-template>
