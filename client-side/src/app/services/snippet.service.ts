@@ -1,7 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { Observable, throwError } from "rxjs";
+import { catchError, map, retry } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Snippet } from "../models/Snippet";
 
@@ -22,7 +22,13 @@ export class SnippetService {
                         return value;
                     }
                 });
-            })
+            }),
+            retry(3),
+            catchError(this.HandleError)
         );
+    }
+
+    private HandleError(error: HttpErrorResponse) {
+        return throwError("Ошибка! Попробуйте повторить попытку позже.");
     }
 }
