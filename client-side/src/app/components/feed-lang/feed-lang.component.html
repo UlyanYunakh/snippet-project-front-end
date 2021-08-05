@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="offset-lg-2 col-lg-8">
+        <div *ngIf="lang">
+            <app-lang [lang]="lang"></app-lang>
+        </div>
+        <app-snippets-list></app-snippets-list>
+    </div>
+    <div class="col-lg-2">
+        <app-sort [links]="links"></app-sort>
+    </div>
+</div>
