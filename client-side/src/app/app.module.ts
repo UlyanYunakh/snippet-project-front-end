@@ -20,6 +20,7 @@ import { ShortSnippetComponent } from './components/short-snippet/short-snippet.
 import { SnippetComponent } from './components/snippet/snippet.component';
 import { LangComponent } from './components/lang/lang.component';
 import { SortComponent } from './components/sort/sort.component';
+import { LangListComponent } from './components/lang-list/lang-list.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { SortComponent } from './components/sort/sort.component';
         ShortSnippetComponent,
         SnippetComponent,
         LangComponent,
-        SortComponent
+        SortComponent,
+        LangListComponent
     ],
     imports: [
         BrowserModule,
