@@ -1,11 +1,33 @@
-<div class="p-2 m-2 bg-white rounded">
-    <h5>Топ тегов:</h5>
-    <div *ngFor="let tag of tags">
-        <a class="link mx-2" [routerLink]="['/tags', tag.id]">
-            {{tag.name}}
-        </a>
+<div *ngIf="tags; then tagsBlock; else loadingBlock"></div>
+
+<ng-template #tagsBlock>
+    <div class="p-2 m-2 bg-white rounded">
+        <h5>Топ тегов:</h5>
+        <div *ngFor="let tag of tags">
+            <a class="link mx-2" [routerLink]="['/tags', tag.name]">
+                {{tag.name}}
+            </a>
+        </div>
     </div>
-    <div *ngIf="!tags">
-        ...Загрузка
-    </div>
-</div>
+</ng-template>
+
+<ng-template #loadingBlock>
+    <div *ngIf="isErrorOccured; then errorOccuredBlock; else executingBlock"></div>
+
+    <ng-template #errorOccuredBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            <p class="text-danger">
+                {{errorMessage}}
+            </p>
+            <button class="btn" (click)="getTopTags()">
+                Обновить
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #executingBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            ...Загрузка
+        </div>
+    </ng-template>
+</ng-template>
