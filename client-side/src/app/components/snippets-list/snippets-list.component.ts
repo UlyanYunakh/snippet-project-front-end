@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { SnippetShortService } from 'src/app/services/snippet-short.service';
 import { ShortSnippet } from '../../models/ShortSnippet';
 
@@ -8,35 +9,66 @@ import { ShortSnippet } from '../../models/ShortSnippet';
     templateUrl: './snippets-list.component.html',
     providers: [SnippetShortService]
 })
-export class SnippetsListComponent implements OnInit {
+export class SnippetsListComponent implements OnInit, OnChanges {
     public shortSnippets: ShortSnippet[] = [];
 
+    public isReady = false;
     public isErrorOccured = false;
     public errorMessage!: string;
 
-    constructor(private service: SnippetShortService) { }
+    private currPage = 1;
+
+    private httpParams!: HttpParams;
+
+    constructor(
+        private service: SnippetShortService,
+        private route: ActivatedRoute
+    ) { }
+
+    ngOnChanges() {
+    }
 
     ngOnInit() {
-        this.getShortSnippets();
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            this.setHttpParams(params);
+            this.getShortSnippets();
+        });
+    }
+
+    private setHttpParams(params: ParamMap) {
+        var paramsObject: { [key: string]: any } = {
+            page: this.currPage,
+            pageSize: 20
+        };
+
+        if (params.get('sortOption')) {
+            paramsObject.orderBy = params.get('sortOption');
+        }
+        if (params.get('langName')) {
+            paramsObject.langs = [params.get('langName')];
+        }
+        if (params.get('tagName')) {
+            paramsObject.tags = [params.get('tagName')];
+        }
+
+        this.httpParams = new HttpParams({
+            fromObject: paramsObject
+        });
     }
 
     public getShortSnippets() {
         this.isErrorOccured = false;
 
-        this.service.getMany(new HttpParams({
-            fromObject: {
-                page: 0,
-                pageSize: 10,
-                orderBy: "date",
-                orderDirection: 0
-            }
-        })).subscribe(
+        this.service.getMany(this.httpParams).subscribe(
             responce => {
                 this.shortSnippets = this.shortSnippets.concat(responce);
+                this.httpParams = this.httpParams.set("page", ++this.currPage);
+                this.isReady = true;
             },
             error => {
                 this.errorMessage = error;
                 this.isErrorOccured = true;
+                this.isReady = false;
             }
         );
     }
