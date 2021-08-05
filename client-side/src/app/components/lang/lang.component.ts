@@ -3,8 +3,7 @@ import { Lang } from '../../models/Lang';
 
 @Component({
     selector: 'app-lang',
-    templateUrl: './lang.component.html',
-    styleUrls: ['./lang.component.css']
+    templateUrl: './lang.component.html'
 })
 export class LangComponent implements OnInit {
     @Input() lang!: Lang;
