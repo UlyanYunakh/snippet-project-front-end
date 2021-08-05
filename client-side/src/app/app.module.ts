@@ -22,6 +22,8 @@ import { LangComponent } from './components/lang/lang.component';
 import { SortComponent } from './components/sort/sort.component';
 import { LangListComponent } from './components/lang-list/lang-list.component';
 import { FeedLangComponent } from './components/feed-lang/feed-lang.component';
+import { FeedTagsComponent } from './components/feed-tags/feed-tags.component';
+import { TagsListComponent } from './components/tags-list/tags-list.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +43,9 @@ import { FeedLangComponent } from './components/feed-lang/feed-lang.component';
         LangComponent,
         SortComponent,
         LangListComponent,
-        FeedLangComponent
+        FeedLangComponent,
+        FeedTagsComponent,
+        TagsListComponent
     ],
     imports: [
         BrowserModule,
