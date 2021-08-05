@@ -7,7 +7,7 @@ export abstract class BaseService<T> {
     protected url = environment.urlApi;
     protected path = "anyPath";
 
-    constructor(private http: HttpClient) { }
+    constructor(protected http: HttpClient) { }
 
     public get(id: string): Observable<T> {
         return this.http.get(`${this.url}/${this.path}/${id}`, { responseType: "text" }).pipe(
