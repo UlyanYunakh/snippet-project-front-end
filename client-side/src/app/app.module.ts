@@ -21,6 +21,7 @@ import { SnippetComponent } from './components/snippet/snippet.component';
 import { LangComponent } from './components/lang/lang.component';
 import { SortComponent } from './components/sort/sort.component';
 import { LangListComponent } from './components/lang-list/lang-list.component';
+import { FeedLangComponent } from './components/feed-lang/feed-lang.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { LangListComponent } from './components/lang-list/lang-list.component';
         SnippetComponent,
         LangComponent,
         SortComponent,
-        LangListComponent
+        LangListComponent,
+        FeedLangComponent
     ],
     imports: [
         BrowserModule,
