@@ -4,7 +4,7 @@
     <div class="p-2 m-2 bg-white rounded">
         <div class="d-flex flex-row">
             <div class="m-2">
-                <a class="link" [routerLink]="['/langs', snippet.language.id]">
+                <a class="link" [routerLink]="['/langs', snippet.language.extraName]">
                     {{snippet.language.name}}
                 </a>
             </div>
@@ -26,7 +26,7 @@
         </pre>
 
         <div class="d-flex flex-row">
-            <a class="link m-1 p-1" *ngFor="let tag of snippet.tags" [routerLink]="['/tags', tag.id]">
+            <a class="link m-1 p-1" *ngFor="let tag of snippet.tags" [routerLink]="['/tags', tag.name]">
                 {{tag.name}}
             </a>
         </div>
