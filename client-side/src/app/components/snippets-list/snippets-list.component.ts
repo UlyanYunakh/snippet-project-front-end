@@ -30,6 +30,7 @@ export class SnippetsListComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.route.paramMap.subscribe((params: ParamMap) => {
+            this.shortSnippets = [];
             this.setHttpParams(params);
             this.getShortSnippets();
         });
