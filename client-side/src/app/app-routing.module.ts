@@ -10,7 +10,6 @@ import { TagsComponent } from './components/tags/tags.component';
 
 const routes: Routes = [
     { path: 'feed/:sortOption', component: FeedComponent },
-    { path: 'feed', component: FeedComponent },
 
     { path: 'langs/:langName/sort/:sortOption', component: FeedComponent },
     { path: 'langs/:langName/:snippetId', component: SnippetComponent },
@@ -24,7 +23,8 @@ const routes: Routes = [
     { path: 'search', component: SearchComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'create', component: CreateComponent },
-    { path: '', redirectTo: '/feed', pathMatch: 'full' }
+    { path: '', redirectTo: '/feed/new', pathMatch: 'full' },
+    { path: '**', redirectTo: '/feed/new', pathMatch: 'full' }
 ];
 
 @NgModule({
