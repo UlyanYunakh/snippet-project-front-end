@@ -42,7 +42,7 @@ export class SnippetsListComponent implements OnInit, OnChanges {
         };
 
         if (params.get('sortOption')) {
-            paramsObject.orderBy = params.get('sortOption');
+            paramsObject.sortOption = params.get('sortOption');
         }
         if (params.get('langName')) {
             paramsObject.langs = [params.get('langName')];
