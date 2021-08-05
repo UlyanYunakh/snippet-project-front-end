@@ -11,6 +11,7 @@ import { TagsComponent } from './components/tags/tags.component';
 const routes: Routes = [
     { path: 'feed/:sortOption', component: FeedComponent },
 
+    { path: 'langs/sort/:sortOption', component: LangsComponent },
     { path: 'langs/:langName/sort/:sortOption', component: FeedComponent },
     { path: 'langs/:langName/:snippetId', component: SnippetComponent },
     { path: 'langs/:langName', component: FeedComponent },
