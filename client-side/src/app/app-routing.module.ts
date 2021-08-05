@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateComponent } from './components/create/create.component';
+import { FeedLangComponent } from './components/feed-lang/feed-lang.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { LangsComponent } from './components/langs/langs.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -12,9 +13,9 @@ const routes: Routes = [
     { path: 'feed/:sortOption', component: FeedComponent },
 
     { path: 'langs/sort/:sortOption', component: LangsComponent },
-    { path: 'langs/:langName/sort/:sortOption', component: FeedComponent },
+    { path: 'langs/:langName/sort/:sortOption', component: FeedLangComponent },
     { path: 'langs/:langName/:snippetId', component: SnippetComponent },
-    { path: 'langs/:langName', component: FeedComponent },
+    { path: 'langs/:langName', component: FeedLangComponent },
     { path: 'langs', component: LangsComponent },
 
     { path: 'tags/:tagName/sort/:sortOption', component: FeedComponent },
