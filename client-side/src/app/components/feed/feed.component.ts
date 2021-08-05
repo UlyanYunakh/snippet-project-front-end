@@ -13,11 +13,11 @@ export class FeedComponent {
         this.links = [
             {
                 optionLink: "/feed/new",
-                optionName: "Сначала новые"
+                optionName: "Новые"
             },
             {
                 optionLink: "/feed/popular",
-                optionName: "Сначала популарные"
+                optionName: "Популарные"
             }
         ];
     }
