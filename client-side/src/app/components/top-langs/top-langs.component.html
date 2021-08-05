@@ -1,11 +1,36 @@
-<div class="p-2 m-2 bg-white rounded">
-    <h5>Топ языков:</h5>
-    <div *ngFor="let lang of langs">
-        <a class="link mx-2" [routerLink]="['/langs', lang.id]">
-            {{lang.name}}
-        </a>
+<div *ngIf="langs; then langsBlock; else loadingBlock"></div>
+
+<ng-template #langsBlock>
+    <div class="p-2 m-2 bg-white rounded">
+        <h5>Топ языков:</h5>
+        <div *ngFor="let lang of langs">
+            <a class="link mx-2" [routerLink]="['/langs', lang.extraName]">
+                {{lang.name}}
+            </a>
+        </div>
+        <div *ngIf="!langs">
+            ...Загрузка
+        </div>
     </div>
-    <div *ngIf="!langs">
-        ...Загрузка
-    </div>
-</div>
+</ng-template>
+
+<ng-template #loadingBlock>
+    <div *ngIf="isErrorOccured; then errorOccuredBlock; else executingBlock"></div>
+
+    <ng-template #errorOccuredBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            <p class="text-danger">
+                {{errorMessage}}
+            </p>
+            <button class="btn" (click)="getTopLangs()">
+                Обновить
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #executingBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            ...Загрузка
+        </div>
+    </ng-template>
+</ng-template>
