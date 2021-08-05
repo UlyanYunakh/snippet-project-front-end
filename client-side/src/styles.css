@@ -7,6 +7,15 @@
     transition: ease-in-out 0.15s;
 }
 
+.text {
+    font-weight: 400;
+    color: rgb(87, 87, 87);
+}
+
+.clickable {
+    cursor: pointer;
+}
+
 .link_active {
     color: #BA0DFB;
 }
