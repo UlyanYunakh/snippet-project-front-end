@@ -1,0 +1,33 @@
+<div *ngIf="isReady; then langsBlock; else loadingBlock"></div>
+
+<ng-template #langsBlock>
+    <div *ngFor="let lang of langs">
+        <app-lang [lang]="lang"></app-lang>
+    </div>
+    <div class="d-flex flex-column align-items-center">
+        <button class="button button_fill" (click)="getLangs()">
+            Загрузить ещё
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #loadingBlock>
+    <div *ngIf="isErrorOccured; then errorOccuredBlock; else executingBlock"></div>
+
+    <ng-template #errorOccuredBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            <p class="text-danger">
+                {{errorMessage}}
+            </p>
+            <button class="btn" (click)="getLangs()">
+                Обновить
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #executingBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            ...Загрузка
+        </div>
+    </ng-template>
+</ng-template>
