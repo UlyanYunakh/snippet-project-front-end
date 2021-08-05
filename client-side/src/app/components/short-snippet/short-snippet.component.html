@@ -1,4 +1,4 @@
-<div class="p-2 m-2 bg-white rounded clickable" [routerLink]="['/feed', snippet.id]">
+<div class="p-2 m-2 bg-white rounded clickable" [routerLink]="['/langs', snippet.language.id, snippet.id]">
     <div class="d-flex flex-row">
         <div class="m-2">
             <a class="link" [routerLink]="['/langs', snippet.language.name]">
