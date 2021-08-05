@@ -1,4 +1,4 @@
-<div *ngIf="shortSnippets; then snippetsBlock; else loadingBlock"></div>
+<div *ngIf="isReady; then snippetsBlock; else loadingBlock"></div>
 
 <ng-template #snippetsBlock>
     <div *ngFor="let snippet of shortSnippets">
