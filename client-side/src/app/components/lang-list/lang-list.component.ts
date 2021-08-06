@@ -28,6 +28,7 @@ export class LangListComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this.langs = [];
+            this.currPage = 1;
             this.setHttpParams(params);
             this.getLangs();
         });
