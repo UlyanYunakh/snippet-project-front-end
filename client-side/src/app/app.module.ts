@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule }   from '@angular/forms';
 
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
@@ -51,7 +52,8 @@ import { TagsListComponent } from './components/tags-list/tags-list.component';
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        HighlightModule
+        HighlightModule,
+        ReactiveFormsModule
     ],
     providers: [
         {
