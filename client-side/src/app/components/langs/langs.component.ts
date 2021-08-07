@@ -13,7 +13,7 @@ export class LangsComponent {
         this.links = [
             {
                 optionLink: "/langs/sort/popular",
-                optionName: "Популарные"
+                optionName: "Популярные"
             },
             {
                 optionLink: "/langs/sort/abc",

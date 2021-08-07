@@ -17,7 +17,7 @@ export class FeedComponent {
             },
             {
                 optionLink: "/feed/popular",
-                optionName: "Популарные"
+                optionName: "Популярные"
             }
         ];
     }
