@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <select name="languageId" formControlName="languageId">
+        <option *ngFor="let lang of langs" [ngValue]="lang.id">
+            {{ lang.name }}
+        </option>
+    </select>
+    <input name="title" formControlName="title" />
+    <input name="description" formControlName="description" />
+    <input name="snippet" formControlName="snippet" />
+    <button [disabled]="form.invalid">
+        Отправить
+    </button>
+</form>
