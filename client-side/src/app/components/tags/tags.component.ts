@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { SortLink } from 'src/app/models/SortLink';
 
 @Component({
-  selector: 'app-tags',
-  templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.css']
+    selector: 'app-tags',
+    templateUrl: './tags.component.html'
 })
-export class TagsComponent implements OnInit {
+export class TagsComponent {
+    public links: SortLink[] | undefined;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+    constructor() {
+        this.links = [
+            {
+                optionLink: "/tags/sort/popular",
+                optionName: "Популярные"
+            },
+            {
+                optionLink: "/tags/sort/abc",
+                optionName: "По алфавиту"
+            }
+        ];
+    }
 }

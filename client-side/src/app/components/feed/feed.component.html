@@ -1,15 +1,12 @@
 <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <app-top-langs></app-top-langs>
         <app-top-tags></app-top-tags>
     </div>
-    <div class="col-lg-6">
-        <h1>Sort: {{sortOption}}</h1>
-        <h1>Lang: {{langName}}</h1>
-        <h1>Tag: {{tagName}}</h1>
+    <div class="col-lg-8">
         <app-snippets-list></app-snippets-list>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <app-sort [links]="links"></app-sort>
     </div>
 </div>

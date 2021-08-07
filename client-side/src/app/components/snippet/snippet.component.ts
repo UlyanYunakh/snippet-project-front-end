@@ -6,7 +6,6 @@ import { Snippet } from '../../models/Snippet';
 @Component({
     selector: 'app-snippet',
     templateUrl: './snippet.component.html',
-    styleUrls: ['./snippet.component.css'],
     providers: [SnippetService]
 })
 export class SnippetComponent implements OnInit {
@@ -24,14 +23,14 @@ export class SnippetComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this.snippetId = params.get("snippetId")!;
-            this.getSnippet(this.snippetId);
+            this.getSnippet();
         });
     }
 
-    public getSnippet(id: string) {
+    public getSnippet() {
         this.isErrorOccured = false;
 
-        this.service.get(id).subscribe(
+        this.service.get(this.snippetId).subscribe(
             responce => {
                 this.snippet = responce;
             },

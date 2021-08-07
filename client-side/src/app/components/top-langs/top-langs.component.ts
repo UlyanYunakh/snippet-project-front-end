@@ -1,36 +1,45 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { LangService } from 'src/app/services/lang.service';
 import { Lang } from '../../models/Lang';
 
 @Component({
     selector: 'app-top-langs',
     templateUrl: './top-langs.component.html',
-    styleUrls: ['./top-langs.component.css']
+    providers: [LangService]
 })
 export class TopLangsComponent implements OnInit {
     public langs!: Lang[];
 
-    constructor() { }
+    public isErrorOccured = false;
+    public errorMessage = "";
+
+    constructor(
+        private service: LangService
+    ) { }
 
     ngOnInit(): void {
-        this.langs = [
-            {
-                id: 1,
-                name: "lang 1"
-            },
-            {
-                id: 2,
-                name: "lang 2"
-            },
-            {
-                id: 3,
-                name: "lang 3"
-            },
-            {
-                id: 4,
-                name: "lang 4"
-            }
-        ];
+        this.getTopLangs();
     }
 
+    public getTopLangs() {
+        this.isErrorOccured = false;
+
+        this.service.getMany(new HttpParams({
+            fromObject: {
+                page: 1,
+                pageSize: 5,
+                sortOption: "new"
+            }
+        })).subscribe(
+            responce => {
+                this.langs = responce;
+            },
+            error => {
+                this.errorMessage = error;
+                this.isErrorOccured = true;
+            }
+        );
+    }
 }
 

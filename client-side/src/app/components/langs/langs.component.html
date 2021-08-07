@@ -1,3 +1,8 @@
-<div *ngFor="let lang of langs">
-    <app-lang [lang]="lang"></app-lang>
+<div class="row">
+    <div class="offset-lg-2 col-lg-8">
+        <app-lang-list></app-lang-list>
+    </div>
+    <div class="col-lg-2">
+        <app-sort [links]="links"></app-sort>
+    </div>
 </div>

@@ -3,8 +3,7 @@ import { ShortSnippet } from '../../models/ShortSnippet';
 
 @Component({
     selector: 'app-short-snippet',
-    templateUrl: './short-snippet.component.html',
-    styleUrls: ['./short-snippet.component.css']
+    templateUrl: './short-snippet.component.html'
 })
 export class ShortSnippetComponent implements OnInit {
     @Input() snippet!: ShortSnippet;

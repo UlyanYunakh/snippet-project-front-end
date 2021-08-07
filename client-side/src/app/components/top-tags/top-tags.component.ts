@@ -1,34 +1,42 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { TagService } from 'src/app/services/tag.service';
 import { Tag } from '../../models/Tag';
 
 @Component({
     selector: 'app-top-tags',
     templateUrl: './top-tags.component.html',
-    styleUrls: ['./top-tags.component.css']
+    providers: [TagService]
 })
 export class TopTagsComponent implements OnInit {
     public tags!: Tag[];
+    
+    public isErrorOccured = false;
+    public errorMessage = "";
 
-    constructor() { }
+    constructor(private service: TagService) { }
 
     ngOnInit(): void {
-        this.tags = [
-            {
-                id: 1,
-                name: "tag 1"
-            },
-            {
-                id: 2,
-                name: "tag 2"
-            },
-            {
-                id: 3,
-                name: "tag 3"
-            },
-            {
-                id: 4,
-                name: "tag 4"
+        this.getTopTags();
+    }
+
+    public getTopTags() {
+        this.isErrorOccured = false;
+
+        this.service.getMany(new HttpParams({
+            fromObject: {
+                page: 1,
+                pageSize: 5,
+                sortOption: "new"
             }
-        ];
+        })).subscribe(
+            responce => {
+                this.tags = responce;
+            },
+            error => {
+                this.errorMessage = error;
+                this.isErrorOccured = true;
+            }
+        );
     }
 }
