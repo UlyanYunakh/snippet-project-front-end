@@ -25,6 +25,7 @@ import { LangListComponent } from './components/lang-list/lang-list.component';
 import { FeedLangComponent } from './components/feed-lang/feed-lang.component';
 import { FeedTagsComponent } from './components/feed-tags/feed-tags.component';
 import { TagsListComponent } from './components/tags-list/tags-list.component';
+import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { TagsListComponent } from './components/tags-list/tags-list.component';
         LangListComponent,
         FeedLangComponent,
         FeedTagsComponent,
-        TagsListComponent
+        TagsListComponent,
+        EditSnippetComponent
     ],
     imports: [
         BrowserModule,
