@@ -14,7 +14,7 @@ export class LangService extends BaseService<Lang> {
     }
 
     public getByName(name: string): Observable<Lang> {
-        return this.http.get(`${this.url}/${this.path}/by-name/${name}`, { responseType: "text" }).pipe(
+        return this.http.get(`${this.url}/${this.path}/${name}`, { responseType: "text" }).pipe(
             map(responce => this.getMap(responce)),
             retry(3),
             catchError(this.HandleError)
