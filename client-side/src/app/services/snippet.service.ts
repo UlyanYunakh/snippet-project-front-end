@@ -21,4 +21,8 @@ export class SnippetService extends BaseService<Snippet> {
             }
         });
     }
+
+    public post(model: any) {
+        return this.http.post<Snippet>(`${this.url}/${this.path}/create`, model);
+    }
 }
