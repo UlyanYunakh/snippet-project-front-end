@@ -17,49 +17,59 @@ export class EditSnippetComponent implements OnInit {
     public langs!: Lang[];
     public snippet!: Snippet;
 
-    public isReady = false;
-    public isErrorOccured = false;
     public errorMessage!: string;
-
-    private snippetId!: string;
 
     constructor(
         private langService: LangService,
         private snippetService: SnippetService,
         private route: ActivatedRoute
-    ) {
-        this.form = new FormGroup({
-            "languageId": new FormControl("", [
-                Validators.required
-            ]),
-            "title": new FormControl("", [
-                Validators.required,
-                Validators.maxLength(140)
-            ]),
-            "description": new FormControl("", [
-                Validators.maxLength(2000)
-            ]),
-            "snippet": new FormControl("", [
-                Validators.required,
-                Validators.maxLength(4000)
-            ])
-        });
-    }
+    ) { }
 
     ngOnInit(): void {
-        this.route.paramMap.subscribe((params: ParamMap) => {
-            if (params.get("snippetId")) {
-                this.snippetId = params.get("snippetId")!;
-                this.getSnippetToEdit();
-            }
-            this.getLangs();
-        });
+        this.setupForm();
     }
 
-    public getSnippetToEdit() {
-        this.isErrorOccured = false;
+    public setupForm() {
+        this.route.paramMap.subscribe(
+            (params: ParamMap) => {
+                this.getLangs();
 
-        this.snippetService.get(this.snippetId).subscribe(
+                if (params.get("snippetId")) {
+                    this.setupEditForm(params.get("snippetId")!);
+                }
+                else {
+                    this.setupCleanForm();
+                }
+            }
+        );
+    }
+
+    public submit() {
+        if (this.snippet) {
+            this.updateSnippet();
+        }
+        else {
+            this.submitNewSnippet();
+        }
+    }
+
+    public onTab(event: any) {
+        if (event.key === "Tab") {
+            event.preventDefault();
+
+            var textArea = document.querySelector("#snippet") as any;
+
+            var start = textArea.selectionStart;
+            var end = textArea.selectionEnd;
+
+            textArea.value = textArea.value.substring(0, start) + "\t" + textArea.value.substring(end);
+
+            textArea.selectionStart = textArea.selectionEnd = start + 1;
+        }
+    }
+
+    private setupEditForm(snippetId: string) {
+        this.snippetService.get(snippetId).subscribe(
             responce => {
                 this.snippet = responce;
 
@@ -81,15 +91,31 @@ export class EditSnippetComponent implements OnInit {
                 });
             },
             error => {
-                this.errorMessage = error;
-                this.isErrorOccured = true;
+                this.errorMessage = "Не удалось загрузить сниппет.";
             }
         );
     }
 
-    public getLangs() {
-        this.isErrorOccured = false;
+    private setupCleanForm() {
+        this.form = new FormGroup({
+            "languageId": new FormControl("", [
+                Validators.required
+            ]),
+            "title": new FormControl("", [
+                Validators.required,
+                Validators.maxLength(140)
+            ]),
+            "description": new FormControl("", [
+                Validators.maxLength(2000)
+            ]),
+            "snippet": new FormControl("", [
+                Validators.required,
+                Validators.maxLength(4000)
+            ])
+        });
+    }
 
+    private getLangs() {
         this.langService.getMany(new HttpParams({
             fromObject: {
                 page: 1,
@@ -99,42 +125,37 @@ export class EditSnippetComponent implements OnInit {
         })).subscribe(
             responce => {
                 this.langs = responce;
-                this.isReady = true;
             },
             error => {
-                this.errorMessage = error;
-                this.isErrorOccured = true;
-                this.isReady = false;
+                this.errorMessage = "Не удалось загрузить языки.";
             }
         );
     }
 
-    public submit() {
-        this.snippetService.post(this.form.getRawValue()).subscribe(
+    private updateSnippet() {
+        this.snippet.languageId = this.form.get("languageId")?.value;
+        this.snippet.title = this.form.get("title")?.value;
+        this.snippet.description = this.form.get("description")?.value;
+        this.snippet.snippet = this.form.get("snippet")?.value;
+
+        this.snippetService.update(this.snippet).subscribe(
             responce => {
-                console.log(responce);
+                // do something with responce
             },
             error => {
-                this.errorMessage = error;
-                this.isErrorOccured = true;
-                this.isReady = false;
+                this.errorMessage = "Не удалось обновить сниппет.";
             }
         );
     }
 
-    public onTab(event: any) {
-        if (event.key === "Tab") {
-            event.preventDefault();
-
-            var textArea = document.querySelector("#snippet") as any;
-
-            var start = textArea.selectionStart;
-            var end = textArea.selectionEnd;
-
-            textArea.value = textArea.value.substring(0, start) + "\t" + textArea.value.substring(end);
-
-            textArea.selectionStart = textArea.selectionEnd = start + 1;
-        }
+    private submitNewSnippet() {
+        this.snippetService.create(this.form.getRawValue()).subscribe(
+            responce => {
+                // do something with responce
+            },
+            error => {
+                this.errorMessage = "Не удалось опубликовать сниппет.";
+            }
+        );
     }
 }
-

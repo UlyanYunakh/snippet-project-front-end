@@ -1,54 +1,44 @@
-<div *ngIf="isReady; then editBlock; else loadingBlock"></div>
-
-<ng-template #editBlock>
-    <div class="p-2 m-2 bg-white rounded">
-        <form [formGroup]="form" (ngSubmit)="submit()">
-            <div class="mb-3">
-                <label for="languageId" class="form-label">Выберите язык сниппета:</label>
-                <select class="form-select" id="languageId" name="languageId" formControlName="languageId">
-                    <option *ngFor="let lang of langs" [ngValue]="lang.id">
-                        {{ lang.name }}
-                    </option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="title" class="form-label">Заголовок сниппета:</label>
-                <input id="title" name="title" class="form-control" formControlName="title" 
-                    placeholder="Например: Мой сниппет"/>
-            </div>
-            <div class="md-3">
-                <label for="description" class="form-label">Описание сниппета (опционально):</label>
-                <textarea id="description" name="description" class="form-control" 
-                    formControlName="description" 
-                    placeholder="Например: Этот алгоритм сортировки очень быстрый, потому что..."></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="snippet" class="form-label">Код сниппета:</label>
-                <textarea id="snippet" name="snippet" class="form-control" formControlName="snippet" 
-                    (keydown)="onTab($event)"></textarea>
-            </div>
-            <button class="btn btn-dark" type="submit" [disabled]="form.invalid">Отправить</button>
-        </form>
-    </div>
-</ng-template>
-
-<ng-template #loadingBlock>
-    <div *ngIf="isErrorOccured; then errorOccuredBlock; else executingBlock"></div>
-
-    <ng-template #errorOccuredBlock>
-        <div class="p-2 m-2 bg-white rounded">
-            <p class="text-danger">
-                {{errorMessage}}
-            </p>
-            <button class="btn" (click)="getLangs()">
-                Обновить
-            </button>
+<div *ngIf="form" class="p-2 m-2 bg-white rounded">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="mb-3">
+            <label for="languageId" class="form-label">Выберите язык сниппета:</label>
+            <select class="form-select" id="languageId" name="languageId" formControlName="languageId">
+                <option *ngFor="let lang of langs" [ngValue]="lang.id">
+                    {{ lang.name }}
+                </option>
+            </select>
         </div>
-    </ng-template>
-
-    <ng-template #executingBlock>
-        <div class="p-2 m-2 bg-white rounded">
-            ...Загрузка
+        <div class="mb-3">
+            <label for="title" class="form-label">Заголовок сниппета:</label>
+            <input id="title" name="title" class="form-control" formControlName="title"
+                placeholder="Например: Мой сниппет" />
         </div>
-    </ng-template>
-</ng-template>
+        <div class="md-3">
+            <label for="description" class="form-label">Описание сниппета (опционально):</label>
+            <textarea id="description" name="description" class="form-control" formControlName="description"
+                placeholder="Например: Этот алгоритм сортировки очень быстрый, потому что..."></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="snippet" class="form-label">Код сниппета:</label>
+            <textarea id="snippet" name="snippet" class="form-control" formControlName="snippet"
+                (keydown)="onTab($event)"></textarea>
+        </div>
+        <div>
+            <button *ngIf="snippet" class="btn btn-dark" type="submit" [disabled]="form.invalid">Сохранить</button>
+            <button *ngIf="!snippet" class="btn btn-dark" type="submit" [disabled]="form.invalid">Опубликовать</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="errorMessage" class="p-2 m-2 bg-white rounded">
+    <p class="text-danger">
+        {{errorMessage}}
+    </p>
+    <button class="btn" (click)="setupForm()">
+        Обновить
+    </button>
+</div>
+
+<div *ngIf="!form && !errorMessage" class="p-2 m-2 bg-white rounded">
+    ...Загрузка
+</div>
