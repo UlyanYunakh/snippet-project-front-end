@@ -4,11 +4,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Lang } from 'src/app/models/Lang';
 import { Snippet } from 'src/app/models/Snippet';
 import { LangService } from 'src/app/services/lang.service';
+import { SnippetService } from 'src/app/services/snippet.service';
 
 @Component({
     selector: 'app-edit-snippet',
     templateUrl: './edit-snippet.component.html',
-    providers: [LangService]
+    providers: [LangService, SnippetService]
 })
 export class EditSnippetComponent implements OnInit {
     public form!: FormGroup;
@@ -18,7 +19,10 @@ export class EditSnippetComponent implements OnInit {
     public isErrorOccured = false;
     public errorMessage!: string;
 
-    constructor(private service: LangService) {
+    constructor(
+        private langService: LangService,
+        private snippetService: SnippetService
+    ) {
         this.form = new FormGroup({
             "languageId": new FormControl("", [
                 Validators.required
@@ -44,7 +48,7 @@ export class EditSnippetComponent implements OnInit {
     public getLangs() {
         this.isErrorOccured = false;
 
-        this.service.getMany(new HttpParams({
+        this.langService.getMany(new HttpParams({
             fromObject: {
                 page: 1,
                 pageSize: 100,
@@ -64,7 +68,16 @@ export class EditSnippetComponent implements OnInit {
     }
 
     public submit() {
-        console.log(this.form.getRawValue() as Snippet);
+        this.snippetService.post(this.form.getRawValue()).subscribe(
+            responce => {
+                console.log(responce);
+            },
+            error => {
+                this.errorMessage = error;
+                this.isErrorOccured = true;
+                this.isReady = false;
+            }
+        );
     }
 
     public onTab(event: any) {
