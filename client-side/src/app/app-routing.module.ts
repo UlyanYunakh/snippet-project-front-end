@@ -26,7 +26,7 @@ const routes: Routes = [
 
     { path: 'search', component: SearchComponent },
     { path: 'profile', component: ProfileComponent },
-    { path: 'edit/:id', component: EditSnippetComponent },
+    { path: 'edit/:snippetId', component: EditSnippetComponent },
     { path: 'edit', component: EditSnippetComponent },
     { path: '', redirectTo: '/feed/new', pathMatch: 'full' },
     { path: '**', redirectTo: '/feed/new', pathMatch: 'full' }
