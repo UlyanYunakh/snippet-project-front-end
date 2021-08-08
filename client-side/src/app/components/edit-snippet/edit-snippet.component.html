@@ -1,13 +1,40 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-    <select name="languageId" formControlName="languageId">
-        <option *ngFor="let lang of langs" [ngValue]="lang.id">
-            {{ lang.name }}
-        </option>
-    </select>
-    <input name="title" formControlName="title" />
-    <input name="description" formControlName="description" />
-    <input name="snippet" formControlName="snippet" />
-    <button [disabled]="form.invalid">
-        Отправить
-    </button>
-</form>
+<div *ngIf="isReady; then editBlock; else loadingBlock"></div>
+
+<ng-template #editBlock>
+    <div class="p-2 m-2 bg-white rounded">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <select name="languageId" formControlName="languageId">
+                <option *ngFor="let lang of langs" [ngValue]="lang.id">
+                    {{ lang.name }}
+                </option>
+            </select>
+            <input name="title" formControlName="title" />
+            <input name="description" formControlName="description" />
+            <input name="snippet" formControlName="snippet" />
+            <button [disabled]="form.invalid">
+                Отправить
+            </button>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #loadingBlock>
+    <div *ngIf="isErrorOccured; then errorOccuredBlock; else executingBlock"></div>
+
+    <ng-template #errorOccuredBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            <p class="text-danger">
+                {{errorMessage}}
+            </p>
+            <button class="btn" (click)="getLangs()">
+                Обновить
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #executingBlock>
+        <div class="p-2 m-2 bg-white rounded">
+            ...Загрузка
+        </div>
+    </ng-template>
+</ng-template>
