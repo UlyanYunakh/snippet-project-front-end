@@ -66,5 +66,20 @@ export class EditSnippetComponent implements OnInit {
     public submit() {
         console.log(this.form.getRawValue() as Snippet);
     }
+
+    public onTab(event: any) {
+        if (event.key === "Tab") {
+            event.preventDefault();
+
+            var textArea = document.querySelector("#snippet") as any;
+
+            var start = textArea.selectionStart;
+            var end = textArea.selectionEnd;
+
+            textArea.value = textArea.value.substring(0, start) + "\t" + textArea.value.substring(end);
+
+            textArea.selectionStart = textArea.selectionEnd = start + 1;
+        }
+    }
 }
 

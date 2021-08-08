@@ -3,17 +3,27 @@
 <ng-template #editBlock>
     <div class="p-2 m-2 bg-white rounded">
         <form [formGroup]="form" (ngSubmit)="submit()">
-            <select name="languageId" formControlName="languageId">
-                <option *ngFor="let lang of langs" [ngValue]="lang.id">
-                    {{ lang.name }}
-                </option>
-            </select>
-            <input name="title" formControlName="title" />
-            <input name="description" formControlName="description" />
-            <input name="snippet" formControlName="snippet" />
-            <button [disabled]="form.invalid">
-                Отправить
-            </button>
+            <div class="mb-3">
+                <label for="languageId" class="form-label">Выберите язык сниппета:</label>
+                <select class="form-select" id="languageId" name="languageId" formControlName="languageId">
+                    <option *ngFor="let lang of langs" [ngValue]="lang.id">
+                        {{ lang.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Заголовок сниппета:</label>
+                <input id="title" name="title" class="form-control" formControlName="title" placeholder="Например: Мой сниппет"/>
+            </div>
+            <div class="md-3">
+                <label for="description" class="form-label">Описание сниппета (опционально):</label>
+                <input id="description" name="description" class="form-control" formControlName="description" placeholder="Например: Этот алгоритм сортировки очень быстрый, потому что..."/>
+            </div>
+            <div class="mb-3">
+                <label for="snippet" class="form-label">Код сниппета:</label>
+                <textarea id="snippet" name="snippet" class="form-control" formControlName="snippet" (keydown)="onTab($event)"></textarea>
+            </div>
+            <button class="button" type="submit" [disabled]="form.invalid">Отправить</button>
         </form>
     </div>
 </ng-template>
