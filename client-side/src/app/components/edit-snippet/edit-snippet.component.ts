@@ -6,39 +6,65 @@ import { Snippet } from 'src/app/models/Snippet';
 import { LangService } from 'src/app/services/lang.service';
 
 @Component({
-  selector: 'app-edit-snippet',
-  templateUrl: './edit-snippet.component.html',
-  providers: [LangService]
+    selector: 'app-edit-snippet',
+    templateUrl: './edit-snippet.component.html',
+    providers: [LangService]
 })
 export class EditSnippetComponent implements OnInit {
-  public form!: FormGroup;
-  public langs!: Lang[];
+    public form!: FormGroup;
+    public langs!: Lang[];
 
-  constructor(private service: LangService) {
-    this.form = new FormGroup({
-      "languageId": new FormControl("", Validators.required),
-      "title": new FormControl("", Validators.required),
-      "description": new FormControl(),
-      "snippet": new FormControl("", Validators.required)
-    });
-  }
+    public isReady = false;
+    public isErrorOccured = false;
+    public errorMessage!: string;
 
-  ngOnInit(): void {
-    this.service.getMany(new HttpParams({
-      fromObject: {
-        page: 1,
-        pageSize: 10,
-        sortOption: "popular"
-      }
-    })).subscribe(
-      responce => {
-        this.langs = responce;
-      }
-    );
-  }
+    constructor(private service: LangService) {
+        this.form = new FormGroup({
+            "languageId": new FormControl("", [
+                Validators.required
+            ]),
+            "title": new FormControl("", [
+                Validators.required,
+                Validators.maxLength(140)
+            ]),
+            "description": new FormControl("", [
+                Validators.maxLength(2000)
+            ]),
+            "snippet": new FormControl("", [
+                Validators.required,
+                Validators.maxLength(4000)
+            ])
+        });
+    }
 
-  public submit() {
-    console.log(this.form.getRawValue() as Snippet);
-  }
+    ngOnInit(): void {
+        this.getLangs();
+    }
+
+    public getLangs() {
+        this.isErrorOccured = false;
+
+        this.service.getMany(new HttpParams({
+            fromObject: {
+                page: 1,
+                pageSize: 100,
+                sortOption: "popular"
+            }
+        })).subscribe(
+            responce => {
+                this.langs = responce;
+                this.isReady = true;
+            },
+            error => {
+                this.errorMessage = error;
+                this.isErrorOccured = true;
+                this.isReady = false;
+            }
+        );
+    }
+
+    public submit() {
+        console.log(this.form.getRawValue() as Snippet);
+    }
 }
 
