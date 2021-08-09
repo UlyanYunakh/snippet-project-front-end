@@ -28,12 +28,11 @@ export class EditSnippetComponent implements OnInit {
     ngOnInit(): void {
         this.setupForm();
     }
-    
+
     public setupForm() {
+        this.errorMessage = undefined;
         this.route.paramMap.subscribe(
             (params: ParamMap) => {
-                this.getLangs();
-
                 if (params.get("snippetId")) {
                     this.setupEditForm(params.get("snippetId")!);
                 }
@@ -91,6 +90,8 @@ export class EditSnippetComponent implements OnInit {
                         Validators.maxLength(4000)
                     ])
                 });
+
+                this.getLangs();
             },
             error => {
                 this.errorMessage = "Не удалось загрузить сниппет.";
@@ -115,6 +116,8 @@ export class EditSnippetComponent implements OnInit {
                 Validators.maxLength(4000)
             ])
         });
+
+        this.getLangs();
     }
 
     private getLangs() {

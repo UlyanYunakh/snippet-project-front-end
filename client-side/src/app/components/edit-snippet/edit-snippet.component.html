@@ -1,4 +1,4 @@
-<div *ngIf="form && !errorMessage" class="p-2 m-2 bg-white rounded">
+<div *ngIf="form && langs" class="p-2 m-2 bg-white rounded">
     <form [formGroup]="form" (ngSubmit)="submit()">
         <div class="mb-3">
             <label for="languageId" class="form-label">Выберите язык сниппета:</label>
@@ -60,7 +60,7 @@
     </button>
 </div>
 
-<div *ngIf="!form && !errorMessage" class="p-2 m-2 bg-white rounded d-flex flex-column align-items-center">
+<div *ngIf="!langs && !errorMessage" class="p-2 m-2 bg-white rounded d-flex flex-column align-items-center">
     <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
