@@ -24,6 +24,11 @@ export class SearchComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.setup();
+    }
+
+    public setup() {
+        this.errorMessage = undefined;
         this.getLangs();
         this.createBasicForm();
     }
