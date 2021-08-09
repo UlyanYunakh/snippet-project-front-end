@@ -1,1 +1,74 @@
-<p>search works!</p>
+<div *ngIf="form && !errorMessage" class="p-2 m-2 bg-white rounded">
+    <form [formGroup]="form!" (ngSubmit)="submit()">
+        <div class="mb-3">
+            <h5 class="mb-3">Включить языки:</h5>
+            <div class="mx-3" formArrayName="langs">
+                <div class="form-group mb-2" *ngFor="let control of getLangsFormsControls()['controls']; let i = index">
+                    <label for="lang{{i}}" class="form-label">Выберите язык:</label>
+                    <select class="form-select mb-1" id="lang{{i}}" name="lang{{i}}" formControlName="{{i}}">
+                        <option *ngFor="let lang of langs" [ngValue]="lang.extraName">
+                            {{ lang.name }}
+                        </option>
+                    </select>
+                    <button type="button" class="btn btn-outline-danger" (click)="removeLangFromArray(i)">
+                        -Удалить
+                    </button>
+                </div>
+                <div *ngIf="form.get('langs')?.invalid && (form.get('langs')?.dirty || form.get('langs')?.touched)"
+                    class="text-danger">
+                    Необходимо указать язык.
+                </div>
+                <button type="button" class="btn btn-success" (click)="addLangToArray()">
+                    + Добавить
+                </button>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <h5 class="mb-3">Исключить языки:</h5>
+            <div class="mx-3" formArrayName="langsExclude">
+                <div *ngFor="let control of getExcludeLangsFormsControls()['controls']; let i = index"
+                    class="form-group mb-2">
+                    <label for="excludeLang{{i}}" class="form-label">Выберите язык:</label>
+                    <select class="form-select mb-1" id="excludeLang{{i}}" name="excludeLang{{i}}"
+                        formControlName="{{i}}">
+                        <option *ngFor="let lang of langs" [ngValue]="lang.extraName">
+                            {{ lang.name }}
+                        </option>
+                    </select>
+                    <button type="button" class="btn btn-outline-danger" (click)="removeExcludeLangFromArray(i)">
+                        -Удалить
+                    </button>
+                </div>
+                <div *ngIf="form.get('langsExclude')?.invalid && (form.get('langsExclude')?.dirty 
+                        || form.get('langsExclude')?.touched)" class="text-danger">
+                    Необходимо указать язык.
+                </div>
+                <button type="button" class="btn btn-success" (click)="addExcludeLangToArray()">
+                    + Добавить
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="!submittingState">
+            <button class="btn btn-dark" type="submit" [disabled]="form.invalid">Найти</button>
+        </div>
+        <div *ngIf="submittingState">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="shortSnippets">
+    <div *ngFor="let snippet of shortSnippets">
+        <app-short-snippet [snippet]="snippet"></app-short-snippet>
+    </div>
+</div>
+
+<div *ngIf="!form && !errorMessage" class="p-2 m-2 bg-white rounded d-flex flex-column align-items-center">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
