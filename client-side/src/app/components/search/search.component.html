@@ -92,6 +92,21 @@
             </div>
         </div>
 
+        <div class="mb-3">
+            <h5 class="mb-3">Дата публикации поста:</h5>
+            <div class="mx-3">
+                <button *ngIf="!form.get('creationDate')" type="button" class="btn btn-success" (click)="addCreationDateToGroup()">
+                    + Добавить
+                </button>
+                <div *ngIf="form.get('creationDate')">
+                    <input type="date" class="form-control mb-1" name="creationDate" formControlName="creationDate">
+                    <button type="button" class="btn btn-outline-danger" (click)="removeCreationDateFromGroup()">
+                        - Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div *ngIf="!submittingState">
             <button class="btn btn-dark" type="submit" [disabled]="form.invalid">Найти</button>
         </div>

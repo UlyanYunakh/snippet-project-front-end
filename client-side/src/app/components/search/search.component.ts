@@ -86,13 +86,20 @@ export class SearchComponent implements OnInit {
         return this.form!.controls["tagsExclude"] as FormArray;
     }
 
+    public addCreationDateToGroup() {
+        this.form?.addControl("creationDate", new FormControl("", Validators.required));
+    }
+
+    public removeCreationDateFromGroup() {
+        this.form?.removeControl("creationDate");
+    }
+
     private createBasicForm() {
         this.form = new FormGroup({
-            "tags": new FormArray([]),
-            "tagsExclude": new FormArray([]),
             "langs": new FormArray([]),
             "langsExclude": new FormArray([]),
-            "creationDate": new FormControl(""),
+            "tags": new FormArray([]),
+            "tagsExclude": new FormArray([]),
             "from": new FormControl(""),
             "to": new FormControl(""),
             "matchString": new FormControl(""),
