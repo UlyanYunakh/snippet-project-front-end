@@ -11,7 +11,7 @@
                         </option>
                     </select>
                     <button type="button" class="btn btn-outline-danger" (click)="removeLangFromArray(i)">
-                        -Удалить
+                        - Удалить
                     </button>
                 </div>
                 <div *ngIf="form.get('langs')?.invalid && (form.get('langs')?.dirty || form.get('langs')?.touched)"
@@ -37,7 +37,7 @@
                         </option>
                     </select>
                     <button type="button" class="btn btn-outline-danger" (click)="removeExcludeLangFromArray(i)">
-                        -Удалить
+                        - Удалить
                     </button>
                 </div>
                 <div *ngIf="form.get('langsExclude')?.invalid && (form.get('langsExclude')?.dirty 
@@ -45,6 +45,48 @@
                     Необходимо указать язык.
                 </div>
                 <button type="button" class="btn btn-success" (click)="addExcludeLangToArray()">
+                    + Добавить
+                </button>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <h5 class="mb-3">Включить теги:</h5>
+            <div class="mx-3" formArrayName="tags">
+                <div class="form-group mb-2" *ngFor="let control of getTagsFormsControls()['controls']; let i = index">
+                    <label for="tag{{i}}" class="form-label">Выберите тег:</label>
+                    <input class="form-control mb-1" id="tag{{i}}" name="tag{{i}}" formControlName="{{i}}">
+                    <button type="button" class="btn btn-outline-danger" (click)="removeTagFromArray(i)">
+                        - Удалить
+                    </button>
+                </div>
+                <div *ngIf="form.get('tags')?.invalid && (form.get('tags')?.dirty || form.get('tags')?.touched)"
+                    class="text-danger">
+                    Необходимо указать теги.
+                </div>
+                <button type="button" class="btn btn-success" (click)="addTagToArray()">
+                    + Добавить
+                </button>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <h5 class="mb-3">Исключить теги:</h5>
+            <div class="mx-3" formArrayName="tagsExclude">
+                <div *ngFor="let control of getExcludeTagsFormsControls()['controls']; let i = index"
+                    class="form-group mb-2">
+                    <label for="excludeTag{{i}}" class="form-label">Выберите тег:</label>
+                    <input class="form-control mb-1" id="excludeTag{{i}}" name="excludeTag{{i}}"
+                        formControlName="{{i}}">
+                    <button type="button" class="btn btn-outline-danger" (click)="removeExcludeTagFromArray(i)">
+                        - Удалить
+                    </button>
+                </div>
+                <div *ngIf="form.get('tagsExclude')?.invalid && (form.get('tagsExclude')?.dirty 
+                        || form.get('tagsExclude')?.touched)" class="text-danger">
+                    Необходимо указать тег.
+                </div>
+                <button type="button" class="btn btn-success" (click)="addExcludeTagToArray()">
                     + Добавить
                 </button>
             </div>

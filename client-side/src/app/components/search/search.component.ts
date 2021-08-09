@@ -62,6 +62,30 @@ export class SearchComponent implements OnInit {
         return this.form!.controls["langsExclude"] as FormArray;
     }
 
+    public addTagToArray() {
+        (<FormArray>this.form!.controls["tags"]).push(new FormControl("", Validators.required));
+    }
+
+    public removeTagFromArray(index: number) {
+        (<FormArray>this.form!.controls["tags"]).removeAt(index);
+    }
+
+    public getTagsFormsControls(): FormArray {
+        return this.form!.controls["tags"] as FormArray;
+    }
+
+    public addExcludeTagToArray() {
+        (<FormArray>this.form!.controls["tagsExclude"]).push(new FormControl("", Validators.required));
+    }
+
+    public removeExcludeTagFromArray(index: number) {
+        (<FormArray>this.form!.controls["tagsExclude"]).removeAt(index);
+    }
+
+    public getExcludeTagsFormsControls(): FormArray {
+        return this.form!.controls["tagsExclude"] as FormArray;
+    }
+
     private createBasicForm() {
         this.form = new FormGroup({
             "tags": new FormArray([]),
