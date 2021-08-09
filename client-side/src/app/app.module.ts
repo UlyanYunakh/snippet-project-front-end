@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule }   from '@angular/forms';
 
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
@@ -12,7 +13,6 @@ import { TagsComponent } from './components/tags/tags.component';
 import { LangsComponent } from './components/langs/langs.component';
 import { SearchComponent } from './components/search/search.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { CreateComponent } from './components/create/create.component';
 import { TopLangsComponent } from './components/top-langs/top-langs.component';
 import { TopTagsComponent } from './components/top-tags/top-tags.component';
 import { SnippetsListComponent } from './components/snippets-list/snippets-list.component';
@@ -24,6 +24,7 @@ import { LangListComponent } from './components/lang-list/lang-list.component';
 import { FeedLangComponent } from './components/feed-lang/feed-lang.component';
 import { FeedTagsComponent } from './components/feed-tags/feed-tags.component';
 import { TagsListComponent } from './components/tags-list/tags-list.component';
+import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,6 @@ import { TagsListComponent } from './components/tags-list/tags-list.component';
         LangsComponent,
         SearchComponent,
         ProfileComponent,
-        CreateComponent,
         TopLangsComponent,
         TopTagsComponent,
         SnippetsListComponent,
@@ -45,13 +45,15 @@ import { TagsListComponent } from './components/tags-list/tags-list.component';
         LangListComponent,
         FeedLangComponent,
         FeedTagsComponent,
-        TagsListComponent
+        TagsListComponent,
+        EditSnippetComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        HighlightModule
+        HighlightModule,
+        ReactiveFormsModule
     ],
     providers: [
         {

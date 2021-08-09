@@ -22,20 +22,21 @@
         </div>
 
         <pre class="m-2">
-            <code [highlight]="snippet.snippet"></code>
+            <code [highlight]="snippet.snippet" [lineNumbers]="true"></code>
         </pre>
 
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row flex-wrap overflow-hidden">
             <a class="link m-1 p-1" *ngFor="let tag of snippet.tags" [routerLink]="['/tags', tag.name]">
                 {{tag.name}}
             </a>
         </div>
 
-        <div class="d-flex">
-            <button class="group__item button button_fill">Share</button>
+        <div class="d-flex flex-row flex-wrap">
+            <button class="btn btn-outline-dark">Share</button>
+            <a class="btn btn-outline-dark" [routerLink]="['/edit', snippet.id]">Edit</a>
             <div class="mx-2 ms-auto text">
-                {{snippet.like}}
-                <button class="group__item button button_fill">Like</button>
+                Likes: {{snippet.like}}
+                <button class="btn btn-outline-dark">Like</button>
             </div>
         </div>
     </div>

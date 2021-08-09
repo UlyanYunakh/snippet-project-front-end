@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateComponent } from './components/create/create.component';
+import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.component';
 import { FeedLangComponent } from './components/feed-lang/feed-lang.component';
 import { FeedTagsComponent } from './components/feed-tags/feed-tags.component';
 import { FeedComponent } from './components/feed/feed.component';
@@ -26,7 +26,8 @@ const routes: Routes = [
 
     { path: 'search', component: SearchComponent },
     { path: 'profile', component: ProfileComponent },
-    { path: 'create', component: CreateComponent },
+    { path: 'edit/:snippetId', component: EditSnippetComponent },
+    { path: 'edit', component: EditSnippetComponent },
     { path: '', redirectTo: '/feed/new', pathMatch: 'full' },
     { path: '**', redirectTo: '/feed/new', pathMatch: 'full' }
 ];

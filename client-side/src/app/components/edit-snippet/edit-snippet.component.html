@@ -1,0 +1,67 @@
+<div *ngIf="form && !errorMessage" class="p-2 m-2 bg-white rounded">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="mb-3">
+            <label for="languageId" class="form-label">Выберите язык сниппета:</label>
+            <select class="form-select" id="languageId" name="languageId" formControlName="languageId">
+                <option *ngFor="let lang of langs" [ngValue]="lang.id">
+                    {{ lang.name }}
+                </option>
+            </select>
+            <div *ngIf="form.get('languageId')?.invalid && (form.get('languageId')?.dirty || form.get('languageId')?.touched)"
+                class="text-danger">
+                Необходимо указать язык.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Заголовок сниппета:</label>
+            <input id="title" name="title" class="form-control" formControlName="title"
+                placeholder="Например: Мой сниппет" />
+            <div *ngIf="form.get('title')?.invalid && (form.get('title')?.dirty || form.get('title')?.touched)"
+                class="text-danger">
+                Необходимо написать заголовок. Длинна заголовка должна быть не больше 140 символов.
+            </div>
+        </div>
+        <div class="md-3">
+            <label for="description" class="form-label">Описание сниппета (опционально):</label>
+            <textarea id="description" name="description" class="form-control" formControlName="description"
+                placeholder="Например: Этот алгоритм сортировки очень быстрый, потому что..."></textarea>
+            <div *ngIf="form.get('description')?.invalid && (form.get('description')?.dirty || form.get('description')?.touched)"
+                class="text-danger">
+                Длинна описания должна быть не больше 2000 символов.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="snippet" class="form-label">Код сниппета:</label>
+            <textarea id="snippet" name="snippet" class="form-control" formControlName="snippet"
+                (keydown)="onTab($event)"></textarea>
+            <div *ngIf="form.get('snippet')?.invalid && (form.get('snippet')?.dirty || form.get('snippet')?.touched)"
+                class="text-danger">
+                Необходимо написать код сниппета. Длинна кода должна быть не больше 4000 символов.
+            </div>
+        </div>
+        <div *ngIf="!submittingState">
+            <button *ngIf="snippet" class="btn btn-dark" type="submit" [disabled]="form.invalid">Сохранить</button>
+            <button *ngIf="!snippet" class="btn btn-dark" type="submit" [disabled]="form.invalid">Опубликовать</button>
+        </div>
+        <div *ngIf="submittingState">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="errorMessage" class="p-2 m-2 bg-white rounded">
+    <p class="text-danger">
+        {{errorMessage}}
+    </p>
+    <button class="btn" (click)="setupForm()">
+        Обновить
+    </button>
+</div>
+
+<div *ngIf="!form && !errorMessage" class="p-2 m-2 bg-white rounded d-flex flex-column align-items-center">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+</div>

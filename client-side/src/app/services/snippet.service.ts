@@ -21,4 +21,12 @@ export class SnippetService extends BaseService<Snippet> {
             }
         });
     }
+
+    public create(snippet: any) {
+        return this.http.post<Snippet>(`${this.url}/${this.path}/create`, snippet);
+    }
+
+    public update(snippet: Snippet) {
+        return this.http.put<Snippet>(`${this.url}/${this.path}/update`, snippet);
+    }
 }
