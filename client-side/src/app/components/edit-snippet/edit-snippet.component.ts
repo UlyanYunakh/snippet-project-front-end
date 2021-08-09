@@ -13,11 +13,11 @@ import { SnippetService } from 'src/app/services/snippet.service';
     providers: [LangService, SnippetService]
 })
 export class EditSnippetComponent implements OnInit {
-    public form!: FormGroup;
-    public langs!: Lang[];
-    public snippet!: Snippet;
-
-    public errorMessage!: string;
+    public form: FormGroup | undefined;
+    public langs: Lang[] | undefined;
+    public snippet: Snippet | undefined;
+    public errorMessage: string | undefined;
+    public submittingState = false;
 
     constructor(
         private langService: LangService,
@@ -28,7 +28,7 @@ export class EditSnippetComponent implements OnInit {
     ngOnInit(): void {
         this.setupForm();
     }
-
+    
     public setupForm() {
         this.route.paramMap.subscribe(
             (params: ParamMap) => {
@@ -45,6 +45,8 @@ export class EditSnippetComponent implements OnInit {
     }
 
     public submit() {
+        this.submittingState = true;
+
         if (this.snippet) {
             this.updateSnippet();
         }
@@ -133,28 +135,32 @@ export class EditSnippetComponent implements OnInit {
     }
 
     private updateSnippet() {
-        this.snippet.languageId = this.form.get("languageId")?.value;
-        this.snippet.title = this.form.get("title")?.value;
-        this.snippet.description = this.form.get("description")?.value;
-        this.snippet.snippet = this.form.get("snippet")?.value;
+        this.snippet!.languageId = this.form!.get("languageId")?.value;
+        this.snippet!.title = this.form!.get("title")?.value;
+        this.snippet!.description = this.form!.get("description")?.value;
+        this.snippet!.snippet = this.form!.get("snippet")?.value;
 
-        this.snippetService.update(this.snippet).subscribe(
+        this.snippetService.update(this.snippet!).subscribe(
             responce => {
                 // do something with responce
+                this.submittingState = false;
             },
             error => {
                 this.errorMessage = "Не удалось обновить сниппет.";
+                this.submittingState = false;
             }
         );
     }
 
     private submitNewSnippet() {
-        this.snippetService.create(this.form.getRawValue()).subscribe(
+        this.snippetService.create(this.form!.getRawValue()).subscribe(
             responce => {
                 // do something with responce
+                this.submittingState = false;
             },
             error => {
                 this.errorMessage = "Не удалось опубликовать сниппет.";
+                this.submittingState = false;
             }
         );
     }

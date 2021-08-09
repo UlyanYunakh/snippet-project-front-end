@@ -1,4 +1,4 @@
-<div *ngIf="form" class="p-2 m-2 bg-white rounded">
+<div *ngIf="form && !errorMessage" class="p-2 m-2 bg-white rounded">
     <form [formGroup]="form" (ngSubmit)="submit()">
         <div class="mb-3">
             <label for="languageId" class="form-label">Выберите язык сниппета:</label>
@@ -23,9 +23,12 @@
             <textarea id="snippet" name="snippet" class="form-control" formControlName="snippet"
                 (keydown)="onTab($event)"></textarea>
         </div>
-        <div>
+        <div *ngIf="!submittingState">
             <button *ngIf="snippet" class="btn btn-dark" type="submit" [disabled]="form.invalid">Сохранить</button>
             <button *ngIf="!snippet" class="btn btn-dark" type="submit" [disabled]="form.invalid">Опубликовать</button>
+        </div>
+        <div *ngIf="submittingState">
+            ...Загрузка
         </div>
     </form>
 </div>
