@@ -1,33 +1,23 @@
-<div *ngIf="tags; then tagsBlock; else loadingBlock"></div>
-
-<ng-template #tagsBlock>
-    <div class="p-2 m-2 bg-white rounded">
-        <h5>Топ тегов:</h5>
-        <div *ngFor="let tag of tags">
-            <a class="link mx-2" [routerLink]="['/tags', tag.name]">
-                {{tag.name}}
-            </a>
-        </div>
+<div *ngIf="tags" class="p-2 m-2 bg-white rounded">
+    <h5>Топ тегов:</h5>
+    <div *ngFor="let tag of tags">
+        <a class="link mx-2" title='Перейти к тегу "{{tag.name}}"' [routerLink]="['/tags', tag.name]">
+            {{tag.name}}
+        </a>
     </div>
-</ng-template>
+</div>
 
-<ng-template #loadingBlock>
-    <div *ngIf="isErrorOccured; then errorOccuredBlock; else executingBlock"></div>
+<div *ngIf="errorMessage" class="p-2 m-2 bg-white rounded">
+    <p class="text-danger">
+        {{errorMessage}}
+    </p>
+    <button class="btn" (click)="getTopTags()">
+        Обновить
+    </button>
+</div>
 
-    <ng-template #errorOccuredBlock>
-        <div class="p-2 m-2 bg-white rounded">
-            <p class="text-danger">
-                {{errorMessage}}
-            </p>
-            <button class="btn" (click)="getTopTags()">
-                Обновить
-            </button>
-        </div>
-    </ng-template>
-
-    <ng-template #executingBlock>
-        <div class="p-2 m-2 bg-white rounded">
-            ...Загрузка
-        </div>
-    </ng-template>
-</ng-template>
+<div *ngIf="!tags && !errorMessage" class="d-flex flex-column align-items-center">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
