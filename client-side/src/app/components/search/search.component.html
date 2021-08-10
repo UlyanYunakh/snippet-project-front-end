@@ -103,6 +103,10 @@
                     <label for="creationDate" class="form-label">Выберите дату:</label>
                     <input type="date" class="form-control mb-1" id="creationDate" name="creationDate"
                         formControlName="creationDate">
+                    <div *ngIf="form.get('creationDate')?.invalid && (form.get('creationDate')?.dirty 
+                            || form.get('creationDate')?.touched)" class="text-danger">
+                        Необходимо указать дату.
+                    </div>
                     <button type="button" class="btn btn-outline-danger" (click)="removeCreationDateFromGroup()">
                         - Удалить
                     </button>
