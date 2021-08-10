@@ -32,8 +32,6 @@ export class SearchComponent implements OnInit {
     }
 
     public setup() {
-        this.shortSnippets = [];
-
         this.getLangs();
         this.createBasicForm();
     }
