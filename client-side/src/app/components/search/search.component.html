@@ -154,6 +154,28 @@
             </div>
         </div>
 
+        <div class="mb-3">
+            <h5 class="mb-3">Включить текст:</h5>
+            <div class="mx-3">
+                <button *ngIf="!form.get('matchString')" type="button" class="btn btn-success"
+                    (click)="addMatchStringToGroup()">
+                    + Добавить
+                </button>
+                <div *ngIf="form.get('matchString')">
+                    <label for="matchString" class="form-label">Напишите текст:</label>
+                    <textarea type="date" class="form-control mb-1" id="matchString" name="matchString"
+                        formControlName="matchString"></textarea>
+                    <div *ngIf="form.get('matchString')?.invalid && (form.get('matchString')?.dirty 
+                            || form.get('matchString')?.touched)" class="text-danger">
+                        Необходимо написать текст.
+                    </div>
+                    <button type="button" class="btn btn-outline-danger" (click)="removeMatchStringFromGroup()">
+                        - Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div *ngIf="!submittingState">
             <button class="btn btn-dark" type="submit" [disabled]="form.invalid">Найти</button>
         </div>

@@ -109,9 +109,17 @@ export class SearchComponent implements OnInit {
         this.removeCreationDateFromGroup();
         this.form?.addControl("to", new FormControl("", Validators.required));
     }
-
+    
     public removeToDateFromGroup() {
         this.form?.removeControl("to");
+    }
+    
+    public addMatchStringToGroup() {
+        this.form?.addControl("matchString", new FormControl("", Validators.required));
+    }
+
+    public removeMatchStringFromGroup() {
+        this.form?.removeControl("matchString");
     }
 
     private createBasicForm() {
@@ -120,7 +128,6 @@ export class SearchComponent implements OnInit {
             "langsExclude": new FormArray([]),
             "tags": new FormArray([]),
             "tagsExclude": new FormArray([]),
-            "matchString": new FormControl(""),
             "page": new FormControl(1),
             "pageSize": new FormControl(100)
         });
