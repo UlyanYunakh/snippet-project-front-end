@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule }   from '@angular/forms';
 
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
@@ -53,7 +54,8 @@ import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.com
         AppRoutingModule,
         HttpClientModule,
         HighlightModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ClipboardModule
     ],
     providers: [
         {
