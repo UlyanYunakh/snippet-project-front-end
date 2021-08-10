@@ -1,8 +1,10 @@
-<div class="p-2 m-2 bg-white rounded clickable" [routerLink]="['/langs/', lang.extraName]">
+<div class="p-2 m-2 bg-white rounded" >
     <div class="m-2">
-        <h3>
-            {{lang.name}}
-        </h3>
+        <a class="link" title='Перейти к языку "{{lang.name}}"' [routerLink]="['/langs/', lang.extraName]">
+            <h3>
+                {{lang.name}}
+            </h3>
+        </a>
         <h5 class="text-secondary">
             {{lang.extraName}}
         </h5>
