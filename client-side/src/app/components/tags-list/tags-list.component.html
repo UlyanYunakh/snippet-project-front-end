@@ -1,5 +1,5 @@
 <div class="p-2 m-2 bg-white rounded d-flex flex-row flex-wrap">
-    <a class="link m-1 p-1" *ngFor="let tag of tags" [routerLink]="['/tags', tag.name]">
+    <a class="link m-1 p-1" title='Перейти к тегу "{{tag.name}}"' *ngFor="let tag of tags" [routerLink]="['/tags', tag.name]">
         {{tag.name}}
     </a>
 </div>
