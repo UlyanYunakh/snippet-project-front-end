@@ -10,14 +10,11 @@ import { Lang } from '../../models/Lang';
     providers: [LangService]
 })
 export class LangListComponent implements OnInit {
-    public langs: Lang[] = [];
-
-    public isReady = false;
-    public isErrorOccured = false;
-    public errorMessage!: string;
+    public langs: Lang[] | undefined;
+    public errorMessage: string | undefined;
+    public loadingState = false;
 
     private currPage = 1;
-    
     private httpParams!: HttpParams;
 
     constructor(
@@ -32,6 +29,23 @@ export class LangListComponent implements OnInit {
             this.setHttpParams(params);
             this.getLangs();
         });
+    }
+
+    public getLangs() {
+        this.errorMessage = undefined;
+        this.loadingState = true;
+
+        this.service.getMany(this.httpParams).subscribe(
+            responce => {
+                this.langs = this.langs?.concat(responce);
+                this.httpParams = this.httpParams.set("page", ++this.currPage);
+                this.loadingState = false;
+            },
+            error => {
+                this.errorMessage = "Языки закончились :(";
+                this.loadingState = false;
+            }
+        );
     }
 
     private setHttpParams(params: ParamMap) {
@@ -51,22 +65,4 @@ export class LangListComponent implements OnInit {
             fromObject: paramsObject
         });
     }
-
-    public getLangs() {
-        this.isErrorOccured = false;
-
-        this.service.getMany(this.httpParams).subscribe(
-            responce => {
-                this.langs = this.langs.concat(responce);
-                this.httpParams = this.httpParams.set("page", ++this.currPage);
-                this.isReady = true;
-            },
-            error => {
-                this.errorMessage = error;
-                this.isErrorOccured = true;
-                this.isReady = false;
-            }
-        );
-    }
 }
-
