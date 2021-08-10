@@ -87,11 +87,31 @@ export class SearchComponent implements OnInit {
     }
 
     public addCreationDateToGroup() {
+        this.removeFromDateFromGroup();
+        this.removeToDateFromGroup();
         this.form?.addControl("creationDate", new FormControl("", Validators.required));
     }
 
     public removeCreationDateFromGroup() {
         this.form?.removeControl("creationDate");
+    }
+
+    public addFromDateToGroup() {
+        this.removeCreationDateFromGroup();
+        this.form?.addControl("from", new FormControl("", Validators.required));
+    }
+
+    public removeFromDateFromGroup() {
+        this.form?.removeControl("from");
+    }
+
+    public addToDateToGroup() {
+        this.removeCreationDateFromGroup();
+        this.form?.addControl("to", new FormControl("", Validators.required));
+    }
+
+    public removeToDateFromGroup() {
+        this.form?.removeControl("to");
     }
 
     private createBasicForm() {
@@ -100,8 +120,6 @@ export class SearchComponent implements OnInit {
             "langsExclude": new FormArray([]),
             "tags": new FormArray([]),
             "tagsExclude": new FormArray([]),
-            "from": new FormControl(""),
-            "to": new FormControl(""),
             "matchString": new FormControl(""),
             "page": new FormControl(1),
             "pageSize": new FormControl(100)

@@ -95,12 +95,55 @@
         <div class="mb-3">
             <h5 class="mb-3">Дата публикации поста:</h5>
             <div class="mx-3">
-                <button *ngIf="!form.get('creationDate')" type="button" class="btn btn-success" (click)="addCreationDateToGroup()">
+                <button *ngIf="!form.get('creationDate')" type="button" class="btn btn-success"
+                    (click)="addCreationDateToGroup()">
                     + Добавить
                 </button>
                 <div *ngIf="form.get('creationDate')">
-                    <input type="date" class="form-control mb-1" name="creationDate" formControlName="creationDate">
+                    <label for="creationDate" class="form-label">Выберите дату:</label>
+                    <input type="date" class="form-control mb-1" id="creationDate" name="creationDate"
+                        formControlName="creationDate">
                     <button type="button" class="btn btn-outline-danger" (click)="removeCreationDateFromGroup()">
+                        - Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <h5 class="mb-3">От даты:</h5>
+            <div class="mx-3">
+                <button *ngIf="!form.get('from')" type="button" class="btn btn-success" (click)="addFromDateToGroup()">
+                    + Добавить
+                </button>
+                <div *ngIf="form.get('from')">
+                    <label for="from" class="form-label">Выберите дату:</label>
+                    <input type="date" class="form-control mb-1" id="from" name="from" formControlName="from">
+                    <div *ngIf="form.get('from')?.invalid && (form.get('from')?.dirty 
+                            || form.get('from')?.touched)" class="text-danger">
+                        Необходимо указать дату.
+                    </div>
+                    <button type="button" class="btn btn-outline-danger" (click)="removeFromDateFromGroup()">
+                        - Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <h5 class="mb-3">До даты:</h5>
+            <div class="mx-3">
+                <button *ngIf="!form.get('to')" type="button" class="btn btn-success" (click)="addToDateToGroup()">
+                    + Добавить
+                </button>
+                <div *ngIf="form.get('to')">
+                    <label for="to" class="form-label">Выберите дату:</label>
+                    <input type="date" class="form-control mb-1" id="to" name="to" formControlName="to">
+                    <div *ngIf="form.get('to')?.invalid && (form.get('to')?.dirty 
+                            || form.get('to')?.touched)" class="text-danger">
+                        Необходимо указать дату.
+                    </div>
+                    <button type="button" class="btn btn-outline-danger" (click)="removeToDateFromGroup()">
                         - Удалить
                     </button>
                 </div>
