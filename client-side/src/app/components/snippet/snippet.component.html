@@ -4,7 +4,8 @@
     <div class="p-2 m-2 bg-white rounded">
         <div class="d-flex flex-row">
             <div class="m-2">
-                <a class="link" [routerLink]="['/langs', snippet.language.extraName]">
+                <a class="link" title='Перейти к языку "{{snippet.language.name}}"'
+                    [routerLink]="['/langs', snippet.language.extraName]">
                     {{snippet.language.name}}
                 </a>
             </div>
@@ -26,17 +27,18 @@
         </pre>
 
         <div class="d-flex flex-row flex-wrap overflow-hidden">
-            <a class="link m-1 p-1" *ngFor="let tag of snippet.tags" [routerLink]="['/tags', tag.name]">
+            <a class="link m-1 p-1" *ngFor="let tag of snippet.tags" title='Перейти к тегу "{{tag.name}}"'
+                [routerLink]="['/tags', tag.name]">
                 {{tag.name}}
             </a>
         </div>
 
         <div class="d-flex flex-row flex-wrap">
-            <button class="btn btn-outline-dark">Share</button>
-            <a class="btn btn-outline-dark" [routerLink]="['/edit', snippet.id]">Edit</a>
+            <button class="btn btn-outline-dark me-1" title='Скопировать ссылку на пост "{{snippet.title}}"'>Share</button>
+            <a class="btn btn-outline-dark" title='Редактировать пост "{{snippet.title}}"' [routerLink]="['/edit', snippet.id]">Edit</a>
             <div class="mx-2 ms-auto text">
                 Likes: {{snippet.like}}
-                <button class="btn btn-outline-dark">Like</button>
+                <button class="btn btn-outline-dark" title='Поставить лайк посту "{{snippet.title}}"'>Like</button>
             </div>
         </div>
     </div>
