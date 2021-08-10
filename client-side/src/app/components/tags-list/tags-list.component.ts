@@ -10,14 +10,11 @@ import { TagService } from 'src/app/services/tag.service';
     providers: [TagService]
 })
 export class TagsListComponent implements OnInit {
-    public tags!: Tag[];
-
-    public isReady = false;
-    public isErrorOccured = false;
-    public errorMessage = "";
+    public tags: Tag[] | undefined;
+    public errorMessage: string | undefined;
+    public loadingState = false;
 
     private currPage!: number;
-
     private httpParams!: HttpParams;
 
     constructor(
@@ -32,6 +29,23 @@ export class TagsListComponent implements OnInit {
             this.setHttpParams(params);
             this.getTags();
         });
+    }
+
+    public getTags() {
+        this.errorMessage = undefined;
+        this.loadingState = true;
+
+        this.service.getMany(this.httpParams).subscribe(
+            responce => {
+                this.tags = this.tags?.concat(responce);
+                this.httpParams = this.httpParams.set("page", ++this.currPage);
+                this.loadingState = false;
+            },
+            error => {
+                this.errorMessage = "Теги кончились :(";
+                this.loadingState = false;
+            }
+        );
     }
 
     private setHttpParams(params: ParamMap) {
@@ -50,22 +64,5 @@ export class TagsListComponent implements OnInit {
         this.httpParams = new HttpParams({
             fromObject: paramsObject
         });
-    }
-
-    public getTags() {
-        this.isErrorOccured = false;
-
-        this.service.getMany(this.httpParams).subscribe(
-            responce => {
-                this.tags = this.tags.concat(responce);
-                this.httpParams = this.httpParams.set("page", ++this.currPage);
-                this.isReady = true;
-            },
-            error => {
-                this.errorMessage = error;
-                this.isErrorOccured = true;
-                this.isReady = false;
-            }
-        );
     }
 }

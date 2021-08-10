@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { SnippetShortService } from 'src/app/services/snippet-short.service';
 import { ShortSnippet } from '../../models/ShortSnippet';
@@ -9,15 +9,12 @@ import { ShortSnippet } from '../../models/ShortSnippet';
     templateUrl: './snippets-list.component.html',
     providers: [SnippetShortService]
 })
-export class SnippetsListComponent implements OnInit, OnChanges {
-    public shortSnippets: ShortSnippet[] = [];
-
-    public isReady = false;
-    public isErrorOccured = false;
-    public errorMessage!: string;
+export class SnippetsListComponent implements OnInit {
+    public shortSnippets: ShortSnippet[] | undefined;
+    public errorMessage: string | undefined;
+    public loadingState = false;
 
     private currPage = 1;
-
     private httpParams!: HttpParams;
 
     constructor(
@@ -25,10 +22,7 @@ export class SnippetsListComponent implements OnInit, OnChanges {
         private route: ActivatedRoute
     ) { }
 
-    ngOnChanges() {
-    }
-
-    ngOnInit() {
+    ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this.shortSnippets = [];
             this.currPage = 1;
@@ -36,11 +30,28 @@ export class SnippetsListComponent implements OnInit, OnChanges {
             this.getShortSnippets();
         });
     }
+    
+    public getShortSnippets() {
+        this.errorMessage = undefined;
+        this.loadingState = true;
+
+        this.service.getMany(this.httpParams).subscribe(
+            responce => {
+                this.shortSnippets = this.shortSnippets?.concat(responce);
+                this.httpParams = this.httpParams.set("page", ++this.currPage);
+                this.loadingState = false;
+            },
+            error => {
+                this.errorMessage = "Сниппеты закончились :(";
+                this.loadingState = false;
+            }
+        );
+    }
 
     private setHttpParams(params: ParamMap) {
         var paramsObject: { [key: string]: any } = {
             page: this.currPage,
-            pageSize: 20
+            pageSize: 10
         };
 
         if (params.get('sortOption')) {
@@ -56,22 +67,5 @@ export class SnippetsListComponent implements OnInit, OnChanges {
         this.httpParams = new HttpParams({
             fromObject: paramsObject
         });
-    }
-
-    public getShortSnippets() {
-        this.isErrorOccured = false;
-
-        this.service.getMany(this.httpParams).subscribe(
-            responce => {
-                this.shortSnippets = this.shortSnippets.concat(responce);
-                this.httpParams = this.httpParams.set("page", ++this.currPage);
-                this.isReady = true;
-            },
-            error => {
-                this.errorMessage = error;
-                this.isErrorOccured = true;
-                this.isReady = false;
-            }
-        );
     }
 }

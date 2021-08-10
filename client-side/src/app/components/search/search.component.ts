@@ -16,7 +16,11 @@ export class SearchComponent implements OnInit {
     public langs: Lang[] | undefined;
     public shortSnippets: ShortSnippet[] | undefined;
     public errorMessage: string | undefined;
+    public loadingState = false;
     public submittingState = false;
+    
+    private currPage: number | undefined;
+    private httpParams: HttpParams | undefined;
 
     constructor(
         private langService: LangService,
@@ -28,13 +32,17 @@ export class SearchComponent implements OnInit {
     }
 
     public setup() {
-        this.errorMessage = undefined;
         this.getLangs();
         this.createBasicForm();
     }
 
     public submit() {
         this.submittingState = true;
+
+        this.shortSnippets = [];
+        this.form?.get("page")?.setValue(this.currPage = 1);
+
+        this.httpParams = new HttpParams({ fromObject: this.form?.getRawValue() });
         this.getSnippets();
     }
 
@@ -109,11 +117,11 @@ export class SearchComponent implements OnInit {
         this.removeCreationDateFromGroup();
         this.form?.addControl("to", new FormControl("", Validators.required));
     }
-    
+
     public removeToDateFromGroup() {
         this.form?.removeControl("to");
     }
-    
+
     public addMatchStringToGroup() {
         this.form?.addControl("matchString", new FormControl("", Validators.required));
     }
@@ -128,19 +136,25 @@ export class SearchComponent implements OnInit {
             "langsExclude": new FormArray([]),
             "tags": new FormArray([]),
             "tagsExclude": new FormArray([]),
-            "page": new FormControl(1),
-            "pageSize": new FormControl(100)
+            "page": new FormControl(this.currPage),
+            "pageSize": new FormControl(10)
         });
     }
 
-    private getSnippets() {
-        this.snippetService.getMany(this.form?.getRawValue()).subscribe(
+    public getSnippets() {
+        this.errorMessage = undefined;
+        this.loadingState = true;
+
+        this.snippetService.getMany(this.httpParams!).subscribe(
             responce => {
-                this.shortSnippets = responce;
+                this.shortSnippets = this.shortSnippets?.concat(responce);
+                this.httpParams = this.httpParams?.set("page", ++this.currPage!);
+                this.loadingState = false;
                 this.submittingState = false;
             },
             error => {
                 this.errorMessage = "Не удалось найти сниппеты, подходящие под критерии поиска."
+                this.loadingState = false;
                 this.submittingState = false;
             }
         );
@@ -150,15 +164,14 @@ export class SearchComponent implements OnInit {
         this.langService.getMany(new HttpParams({
             fromObject: {
                 page: 1,
-                pageSize: 100,
-                sortOption: "popular"
+                pageSize: 100
             }
         })).subscribe(
             responce => {
                 this.langs = responce;
             },
             error => {
-                this.errorMessage = "Не удалось загрузить языки.";
+                this.errorMessage = error;
             }
         );
     }

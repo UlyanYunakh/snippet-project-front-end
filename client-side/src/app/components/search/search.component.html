@@ -1,209 +1,224 @@
-<div *ngIf="form && langs" class="p-2 m-2 bg-white rounded">
-    <form [formGroup]="form!" (ngSubmit)="submit()">
-        <div class="mb-3">
-            <h5 class="mb-3">Включить языки:</h5>
-            <div class="mx-3" formArrayName="langs">
-                <div class="form-group mb-2" *ngFor="let control of getLangsFormsControls()['controls']; let i = index">
-                    <label for="lang{{i}}" class="form-label">Выберите язык:</label>
-                    <select class="form-select mb-1" id="lang{{i}}" name="lang{{i}}" formControlName="{{i}}">
-                        <option *ngFor="let lang of langs" [ngValue]="lang.extraName">
-                            {{ lang.name }}
-                        </option>
-                    </select>
-                    <button type="button" class="btn btn-outline-danger" (click)="removeLangFromArray(i)">
-                        - Удалить
+<div class="row">
+    <div *ngIf="form && langs" class="offset-lg-2 col-lg-8">
+        <form [formGroup]="form" (ngSubmit)="submit()" class="p-2 m-2 bg-white rounded">
+            <div class="mb-3">
+                <h5 class="mb-3">Включить языки:</h5>
+                <div class="mx-3" formArrayName="langs">
+                    <div class="form-group mb-2"
+                        *ngFor="let control of getLangsFormsControls()['controls']; let i = index">
+                        <label for="lang{{i}}" class="form-label">Выберите язык:</label>
+                        <select class="form-select mb-1" id="lang{{i}}" name="lang{{i}}" formControlName="{{i}}">
+                            <option *ngFor="let lang of langs" [ngValue]="lang.extraName">
+                                {{ lang.name }}
+                            </option>
+                        </select>
+                        <button type="button" class="btn btn-outline-danger" (click)="removeLangFromArray(i)">
+                            - Удалить
+                        </button>
+                    </div>
+                    <div *ngIf="form.get('langs')?.invalid && (form.get('langs')?.dirty || form.get('langs')?.touched)"
+                        class="text-danger">
+                        Необходимо указать язык.
+                    </div>
+                    <button type="button" class="btn btn-success" (click)="addLangToArray()">
+                        + Добавить
                     </button>
                 </div>
-                <div *ngIf="form.get('langs')?.invalid && (form.get('langs')?.dirty || form.get('langs')?.touched)"
-                    class="text-danger">
-                    Необходимо указать язык.
-                </div>
-                <button type="button" class="btn btn-success" (click)="addLangToArray()">
-                    + Добавить
-                </button>
             </div>
-        </div>
 
-        <div class="mb-3">
-            <h5 class="mb-3">Исключить языки:</h5>
-            <div class="mx-3" formArrayName="langsExclude">
-                <div *ngFor="let control of getExcludeLangsFormsControls()['controls']; let i = index"
-                    class="form-group mb-2">
-                    <label for="excludeLang{{i}}" class="form-label">Выберите язык:</label>
-                    <select class="form-select mb-1" id="excludeLang{{i}}" name="excludeLang{{i}}"
-                        formControlName="{{i}}">
-                        <option *ngFor="let lang of langs" [ngValue]="lang.extraName">
-                            {{ lang.name }}
-                        </option>
-                    </select>
-                    <button type="button" class="btn btn-outline-danger" (click)="removeExcludeLangFromArray(i)">
-                        - Удалить
-                    </button>
-                </div>
-                <div *ngIf="form.get('langsExclude')?.invalid && (form.get('langsExclude')?.dirty 
+            <div class="mb-3">
+                <h5 class="mb-3">Исключить языки:</h5>
+                <div class="mx-3" formArrayName="langsExclude">
+                    <div *ngFor="let control of getExcludeLangsFormsControls()['controls']; let i = index"
+                        class="form-group mb-2">
+                        <label for="excludeLang{{i}}" class="form-label">Выберите язык:</label>
+                        <select class="form-select mb-1" id="excludeLang{{i}}" name="excludeLang{{i}}"
+                            formControlName="{{i}}">
+                            <option *ngFor="let lang of langs" [ngValue]="lang.extraName">
+                                {{ lang.name }}
+                            </option>
+                        </select>
+                        <button type="button" class="btn btn-outline-danger" (click)="removeExcludeLangFromArray(i)">
+                            - Удалить
+                        </button>
+                    </div>
+                    <div *ngIf="form.get('langsExclude')?.invalid && (form.get('langsExclude')?.dirty 
                         || form.get('langsExclude')?.touched)" class="text-danger">
-                    Необходимо указать язык.
-                </div>
-                <button type="button" class="btn btn-success" (click)="addExcludeLangToArray()">
-                    + Добавить
-                </button>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <h5 class="mb-3">Включить теги:</h5>
-            <div class="mx-3" formArrayName="tags">
-                <div class="form-group mb-2" *ngFor="let control of getTagsFormsControls()['controls']; let i = index">
-                    <label for="tag{{i}}" class="form-label">Напишите тег:</label>
-                    <input class="form-control mb-1" id="tag{{i}}" name="tag{{i}}" formControlName="{{i}}">
-                    <button type="button" class="btn btn-outline-danger" (click)="removeTagFromArray(i)">
-                        - Удалить
-                    </button>
-                </div>
-                <div *ngIf="form.get('tags')?.invalid && (form.get('tags')?.dirty || form.get('tags')?.touched)"
-                    class="text-danger">
-                    Необходимо написать тег.
-                </div>
-                <button type="button" class="btn btn-success" (click)="addTagToArray()">
-                    + Добавить
-                </button>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <h5 class="mb-3">Исключить теги:</h5>
-            <div class="mx-3" formArrayName="tagsExclude">
-                <div *ngFor="let control of getExcludeTagsFormsControls()['controls']; let i = index"
-                    class="form-group mb-2">
-                    <label for="excludeTag{{i}}" class="form-label">Напишите тег:</label>
-                    <input class="form-control mb-1" id="excludeTag{{i}}" name="excludeTag{{i}}"
-                        formControlName="{{i}}">
-                    <button type="button" class="btn btn-outline-danger" (click)="removeExcludeTagFromArray(i)">
-                        - Удалить
-                    </button>
-                </div>
-                <div *ngIf="form.get('tagsExclude')?.invalid && (form.get('tagsExclude')?.dirty 
-                        || form.get('tagsExclude')?.touched)" class="text-danger">
-                    Необходимо написать тег.
-                </div>
-                <button type="button" class="btn btn-success" (click)="addExcludeTagToArray()">
-                    + Добавить
-                </button>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <h5 class="mb-3">Дата публикации поста:</h5>
-            <div class="mx-3">
-                <button *ngIf="!form.get('creationDate')" type="button" class="btn btn-success"
-                    (click)="addCreationDateToGroup()">
-                    + Добавить
-                </button>
-                <div *ngIf="form.get('creationDate')">
-                    <label for="creationDate" class="form-label">Выберите дату:</label>
-                    <input type="date" class="form-control mb-1" id="creationDate" name="creationDate"
-                        formControlName="creationDate">
-                    <div *ngIf="form.get('creationDate')?.invalid && (form.get('creationDate')?.dirty 
-                            || form.get('creationDate')?.touched)" class="text-danger">
-                        Необходимо указать дату.
+                        Необходимо указать язык.
                     </div>
-                    <button type="button" class="btn btn-outline-danger" (click)="removeCreationDateFromGroup()">
-                        - Удалить
+                    <button type="button" class="btn btn-success" (click)="addExcludeLangToArray()">
+                        + Добавить
                     </button>
                 </div>
             </div>
-        </div>
 
-        <div class="mb-3">
-            <h5 class="mb-3">От даты:</h5>
-            <div class="mx-3">
-                <button *ngIf="!form.get('from')" type="button" class="btn btn-success" (click)="addFromDateToGroup()">
-                    + Добавить
-                </button>
-                <div *ngIf="form.get('from')">
-                    <label for="from" class="form-label">Выберите дату:</label>
-                    <input type="date" class="form-control mb-1" id="from" name="from" formControlName="from">
-                    <div *ngIf="form.get('from')?.invalid && (form.get('from')?.dirty 
-                            || form.get('from')?.touched)" class="text-danger">
-                        Необходимо указать дату.
+            <div class="mb-3">
+                <h5 class="mb-3">Включить теги:</h5>
+                <div class="mx-3" formArrayName="tags">
+                    <div class="form-group mb-2"
+                        *ngFor="let control of getTagsFormsControls()['controls']; let i = index">
+                        <label for="tag{{i}}" class="form-label">Напишите тег:</label>
+                        <input class="form-control mb-1" id="tag{{i}}" name="tag{{i}}" formControlName="{{i}}">
+                        <button type="button" class="btn btn-outline-danger" (click)="removeTagFromArray(i)">
+                            - Удалить
+                        </button>
                     </div>
-                    <button type="button" class="btn btn-outline-danger" (click)="removeFromDateFromGroup()">
-                        - Удалить
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <h5 class="mb-3">До даты:</h5>
-            <div class="mx-3">
-                <button *ngIf="!form.get('to')" type="button" class="btn btn-success" (click)="addToDateToGroup()">
-                    + Добавить
-                </button>
-                <div *ngIf="form.get('to')">
-                    <label for="to" class="form-label">Выберите дату:</label>
-                    <input type="date" class="form-control mb-1" id="to" name="to" formControlName="to">
-                    <div *ngIf="form.get('to')?.invalid && (form.get('to')?.dirty 
-                            || form.get('to')?.touched)" class="text-danger">
-                        Необходимо указать дату.
+                    <div *ngIf="form.get('tags')?.invalid && (form.get('tags')?.dirty || form.get('tags')?.touched)"
+                        class="text-danger">
+                        Необходимо написать тег.
                     </div>
-                    <button type="button" class="btn btn-outline-danger" (click)="removeToDateFromGroup()">
-                        - Удалить
+                    <button type="button" class="btn btn-success" (click)="addTagToArray()">
+                        + Добавить
                     </button>
                 </div>
             </div>
-        </div>
 
-        <div class="mb-3">
-            <h5 class="mb-3">Включить текст:</h5>
-            <div class="mx-3">
-                <button *ngIf="!form.get('matchString')" type="button" class="btn btn-success"
-                    (click)="addMatchStringToGroup()">
-                    + Добавить
-                </button>
-                <div *ngIf="form.get('matchString')">
-                    <label for="matchString" class="form-label">Напишите текст:</label>
-                    <textarea type="date" class="form-control mb-1" id="matchString" name="matchString"
-                        formControlName="matchString"></textarea>
-                    <div *ngIf="form.get('matchString')?.invalid && (form.get('matchString')?.dirty 
+            <div class="mb-3">
+                <h5 class="mb-3">Исключить теги:</h5>
+                <div class="mx-3" formArrayName="tagsExclude">
+                    <div *ngFor="let control of getExcludeTagsFormsControls()['controls']; let i = index"
+                        class="form-group mb-2">
+                        <label for="excludeTag{{i}}" class="form-label">Напишите тег:</label>
+                        <input class="form-control mb-1" id="excludeTag{{i}}" name="excludeTag{{i}}"
+                            formControlName="{{i}}">
+                        <button type="button" class="btn btn-outline-danger" (click)="removeExcludeTagFromArray(i)">
+                            - Удалить
+                        </button>
+                    </div>
+                    <div *ngIf="form.get('tagsExclude')?.invalid && (form.get('tagsExclude')?.dirty 
+            || form.get('tagsExclude')?.touched)" class="text-danger">
+                        Необходимо написать тег.
+                    </div>
+                    <button type="button" class="btn btn-success" (click)="addExcludeTagToArray()">
+                        + Добавить
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="mb-3">Дата публикации поста:</h5>
+                <div class="mx-3">
+                    <button *ngIf="!form.get('creationDate')" type="button" class="btn btn-success"
+                        (click)="addCreationDateToGroup()">
+                        + Добавить
+                    </button>
+                    <div *ngIf="form.get('creationDate')">
+                        <label for="creationDate" class="form-label">Выберите дату:</label>
+                        <input type="date" class="form-control mb-1" id="creationDate" name="creationDate"
+                            formControlName="creationDate">
+                        <div *ngIf="form.get('creationDate')?.invalid && (form.get('creationDate')?.dirty 
+                    || form.get('creationDate')?.touched)" class="text-danger">
+                            Необходимо указать дату.
+                        </div>
+                        <button type="button" class="btn btn-outline-danger" (click)="removeCreationDateFromGroup()">
+                            - Удалить
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="mb-3">От даты:</h5>
+                <div class="mx-3">
+                    <button *ngIf="!form.get('from')" type="button" class="btn btn-success"
+                        (click)="addFromDateToGroup()">
+                        + Добавить
+                    </button>
+                    <div *ngIf="form.get('from')">
+                        <label for="from" class="form-label">Выберите дату:</label>
+                        <input type="date" class="form-control mb-1" id="from" name="from" formControlName="from">
+                        <div *ngIf="form.get('from')?.invalid && (form.get('from')?.dirty 
+                    || form.get('from')?.touched)" class="text-danger">
+                            Необходимо указать дату.
+                        </div>
+                        <button type="button" class="btn btn-outline-danger" (click)="removeFromDateFromGroup()">
+                            - Удалить
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="mb-3">До даты:</h5>
+                <div class="mx-3">
+                    <button *ngIf="!form.get('to')" type="button" class="btn btn-success" (click)="addToDateToGroup()">
+                        + Добавить
+                    </button>
+                    <div *ngIf="form.get('to')">
+                        <label for="to" class="form-label">Выберите дату:</label>
+                        <input type="date" class="form-control mb-1" id="to" name="to" formControlName="to">
+                        <div *ngIf="form.get('to')?.invalid && (form.get('to')?.dirty 
+                || form.get('to')?.touched)" class="text-danger">
+                            Необходимо указать дату.
+                        </div>
+                        <button type="button" class="btn btn-outline-danger" (click)="removeToDateFromGroup()">
+                            - Удалить
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="mb-3">Включить текст:</h5>
+                <div class="mx-3">
+                    <button *ngIf="!form.get('matchString')" type="button" class="btn btn-success"
+                        (click)="addMatchStringToGroup()">
+                        + Добавить
+                    </button>
+                    <div *ngIf="form.get('matchString')">
+                        <label for="matchString" class="form-label">Напишите текст:</label>
+                        <textarea type="date" class="form-control mb-1" id="matchString" name="matchString"
+                            formControlName="matchString"></textarea>
+                        <div *ngIf="form.get('matchString')?.invalid && (form.get('matchString')?.dirty 
                             || form.get('matchString')?.touched)" class="text-danger">
-                        Необходимо написать текст.
+                            Необходимо написать текст.
+                        </div>
+                        <button type="button" class="btn btn-outline-danger" (click)="removeMatchStringFromGroup()">
+                            - Удалить
+                        </button>
                     </div>
-                    <button type="button" class="btn btn-outline-danger" (click)="removeMatchStringFromGroup()">
-                        - Удалить
-                    </button>
                 </div>
             </div>
-        </div>
 
-        <div *ngIf="!submittingState">
-            <button class="btn btn-dark" type="submit" [disabled]="form.invalid">Найти</button>
-        </div>
-        <div *ngIf="submittingState">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
+            <div *ngIf="!submittingState">
+                <button class="btn btn-dark" type="submit" [disabled]="form.invalid">Найти</button>
             </div>
+            <div *ngIf="submittingState">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </form>
+
+        <div *ngFor="let snippet of shortSnippets">
+            <app-short-snippet [snippet]="snippet"></app-short-snippet>
         </div>
-    </form>
-</div>
-
-<div *ngIf="shortSnippets">
-    <div *ngFor="let snippet of shortSnippets">
-        <app-short-snippet [snippet]="snippet"></app-short-snippet>
+        <div *ngIf="errorMessage; then error"></div>
+        <div *ngIf="!loadingState && form.valid && shortSnippets" class="d-flex flex-column align-items-center">
+            <button class="btn btn-outline-dark" (click)="getSnippets()">
+                Загрузить ещё
+            </button>
+        </div>
+        <div *ngIf="loadingState && form.valid; then loading"></div>
     </div>
+
+    <div *ngIf="(!form || !langs) && errorMessage; then error"></div>
+    <div *ngIf="(!form || !langs) && !errorMessage; then loading"></div>
 </div>
 
-<div *ngIf="errorMessage" class="p-2 m-2 bg-white rounded">
-    <p class="text-danger">
-        {{errorMessage}}
-    </p>
-    <button class="btn" (click)="setup()">
-        Обновить
-    </button>
-</div>
 
-<div *ngIf="!langs && !errorMessage" class="p-2 m-2 bg-white rounded d-flex flex-column align-items-center">
-    <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
+<ng-template #error>
+    <div class="p-2 m-2 bg-white rounded">
+        <p class="text-danger">
+            {{errorMessage}}
+        </p>
     </div>
-</div>
+</ng-template>
+
+<ng-template #loading>
+    <div class="d-flex flex-column align-items-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</ng-template>
