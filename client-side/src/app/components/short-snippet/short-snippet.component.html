@@ -31,7 +31,8 @@
         </a>
     </div>
     <div class="d-flex flex-row flex-wrap">
-        <button class="btn btn-outline-dark" title='Скопировать ссылку на пост "{{snippet.title}}"'>Share</button>
+        <button class="btn btn-outline-dark" title='Скопировать ссылку на пост "{{snippet.title}}"'
+            (click)="copyUrl(snippet.language.extraName, snippet.id)">Share</button>
         <div class="mx-2 ms-auto text">
             Likes: {{snippet.like}}
         </div>
