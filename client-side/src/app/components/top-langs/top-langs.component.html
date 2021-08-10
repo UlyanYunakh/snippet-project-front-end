@@ -1,7 +1,7 @@
 <div *ngIf="langs" class="p-2 m-2 bg-white rounded">
     <h5>Топ языков:</h5>
-    <div *ngFor="let lang of langs">
-        <a class="link mx-2" title='Перейти к языку "{{lang.name}}"' [routerLink]="['/langs', lang.extraName]">
+    <div *ngFor="let lang of langs" class="mx-2 overflow-hidden">
+        <a class="link" title='Перейти к языку "{{lang.name}}"' [routerLink]="['/langs', lang.extraName]">
             {{lang.name}}
         </a>
     </div>
