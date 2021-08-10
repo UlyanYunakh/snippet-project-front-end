@@ -1,36 +1,23 @@
-<div *ngIf="langs; then langsBlock; else loadingBlock"></div>
-
-<ng-template #langsBlock>
-    <div class="p-2 m-2 bg-white rounded">
-        <h5>Топ языков:</h5>
-        <div *ngFor="let lang of langs">
-            <a class="link mx-2" [routerLink]="['/langs', lang.extraName]">
-                {{lang.name}}
-            </a>
-        </div>
-        <div *ngIf="!langs">
-            ...Загрузка
-        </div>
+<div *ngIf="langs" class="p-2 m-2 bg-white rounded">
+    <h5>Топ языков:</h5>
+    <div *ngFor="let lang of langs" class="mx-2 overflow-hidden">
+        <a class="link" title='Перейти к языку "{{lang.name}}"' [routerLink]="['/langs', lang.extraName]">
+            {{lang.name}}
+        </a>
     </div>
-</ng-template>
+</div>
 
-<ng-template #loadingBlock>
-    <div *ngIf="isErrorOccured; then errorOccuredBlock; else executingBlock"></div>
+<div *ngIf="errorMessage" class="p-2 m-2 bg-white rounded">
+    <p class="text-danger">
+        {{errorMessage}}
+    </p>
+    <button class="btn" (click)="getTopLangs()">
+        Обновить
+    </button>
+</div>
 
-    <ng-template #errorOccuredBlock>
-        <div class="p-2 m-2 bg-white rounded">
-            <p class="text-danger">
-                {{errorMessage}}
-            </p>
-            <button class="btn" (click)="getTopLangs()">
-                Обновить
-            </button>
-        </div>
-    </ng-template>
-
-    <ng-template #executingBlock>
-        <div class="p-2 m-2 bg-white rounded">
-            ...Загрузка
-        </div>
-    </ng-template>
-</ng-template>
+<div *ngIf="!langs && !errorMessage" class="d-flex flex-column align-items-center">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>

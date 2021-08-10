@@ -9,10 +9,8 @@ import { Lang } from '../../models/Lang';
     providers: [LangService]
 })
 export class TopLangsComponent implements OnInit {
-    public langs!: Lang[];
-
-    public isErrorOccured = false;
-    public errorMessage = "";
+    public langs: Lang[] | undefined;
+    public errorMessage: string | undefined;
 
     constructor(
         private service: LangService
@@ -23,13 +21,13 @@ export class TopLangsComponent implements OnInit {
     }
 
     public getTopLangs() {
-        this.isErrorOccured = false;
+        this.errorMessage = undefined;
 
         this.service.getMany(new HttpParams({
             fromObject: {
                 page: 1,
                 pageSize: 5,
-                sortOption: "new"
+                sortOption: "popular"
             }
         })).subscribe(
             responce => {
@@ -37,7 +35,6 @@ export class TopLangsComponent implements OnInit {
             },
             error => {
                 this.errorMessage = error;
-                this.isErrorOccured = true;
             }
         );
     }

@@ -1,16 +1,21 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ShortSnippet } from '../../models/ShortSnippet';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
     selector: 'app-short-snippet',
     templateUrl: './short-snippet.component.html'
 })
-export class ShortSnippetComponent implements OnInit {
+export class ShortSnippetComponent {
     @Input() snippet!: ShortSnippet;
 
-    constructor() { }
+    private baseURL = location.origin;
 
-    ngOnInit(): void {
+    constructor(
+        private clipboardApi: ClipboardService
+    ) { }
+
+    copyUrl(langName:string, snippetId: number) {
+        this.clipboardApi.copyFromContent(`${this.baseURL}/langs/${langName}/${snippetId}`);
     }
-
 }

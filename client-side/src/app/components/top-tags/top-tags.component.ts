@@ -9,25 +9,25 @@ import { Tag } from '../../models/Tag';
     providers: [TagService]
 })
 export class TopTagsComponent implements OnInit {
-    public tags!: Tag[];
-    
-    public isErrorOccured = false;
-    public errorMessage = "";
+    public tags: Tag[] | undefined;
+    public errorMessage: string | undefined;
 
-    constructor(private service: TagService) { }
+    constructor(
+        private service: TagService
+    ) { }
 
     ngOnInit(): void {
         this.getTopTags();
     }
 
     public getTopTags() {
-        this.isErrorOccured = false;
+        this.errorMessage = undefined;
 
         this.service.getMany(new HttpParams({
             fromObject: {
                 page: 1,
                 pageSize: 5,
-                sortOption: "new"
+                sortOption: "popular"
             }
         })).subscribe(
             responce => {
@@ -35,7 +35,6 @@ export class TopTagsComponent implements OnInit {
             },
             error => {
                 this.errorMessage = error;
-                this.isErrorOccured = true;
             }
         );
     }
