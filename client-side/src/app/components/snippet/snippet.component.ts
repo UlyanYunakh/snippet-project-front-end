@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ClipboardService } from 'ngx-clipboard';
 import { SnippetService } from 'src/app/services/snippet.service';
 import { Snippet } from '../../models/Snippet';
 
@@ -9,15 +10,14 @@ import { Snippet } from '../../models/Snippet';
     providers: [SnippetService]
 })
 export class SnippetComponent implements OnInit {
-    public snippet!: Snippet;
-    public snippetId!: string;
-
-    public isErrorOccured = false;
-    public errorMessage = "";
+    public snippet: Snippet | undefined;
+    public snippetId: string | undefined;
+    public errorMessage: string | undefined;
 
     constructor(
         private service: SnippetService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private clipboardApi: ClipboardService
     ) { }
 
     ngOnInit(): void {
@@ -28,17 +28,19 @@ export class SnippetComponent implements OnInit {
     }
 
     public getSnippet() {
-        this.isErrorOccured = false;
+        this.errorMessage = undefined;
 
-        this.service.get(this.snippetId).subscribe(
+        this.service.get(this.snippetId!).subscribe(
             responce => {
                 this.snippet = responce;
             },
             error => {
                 this.errorMessage = error;
-                this.isErrorOccured = true;
             }
         );
     }
 
+    copyUrl() {
+        this.clipboardApi.copyFromContent(`${location.href}`);
+    }
 }
