@@ -1,7 +1,7 @@
 <div *ngIf="tags" class="p-2 m-2 bg-white rounded">
     <h5>Топ тегов:</h5>
-    <div *ngFor="let tag of tags">
-        <a class="link mx-2" title='Перейти к тегу "{{tag.name}}"' [routerLink]="['/tags', tag.name]">
+    <div *ngFor="let tag of tags" class="mx-2 overflow-hidden">
+        <a class="link" title='Перейти к тегу "{{tag.name}}"' [routerLink]="['/tags', tag.name]">
             {{tag.name}}
         </a>
     </div>

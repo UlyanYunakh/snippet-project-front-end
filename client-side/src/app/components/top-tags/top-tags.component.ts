@@ -27,7 +27,7 @@ export class TopTagsComponent implements OnInit {
             fromObject: {
                 page: 1,
                 pageSize: 5,
-                sortOption: "new"
+                sortOption: "popular"
             }
         })).subscribe(
             responce => {
