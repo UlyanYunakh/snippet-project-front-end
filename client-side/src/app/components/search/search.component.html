@@ -54,7 +54,7 @@
             <h5 class="mb-3">Включить теги:</h5>
             <div class="mx-3" formArrayName="tags">
                 <div class="form-group mb-2" *ngFor="let control of getTagsFormsControls()['controls']; let i = index">
-                    <label for="tag{{i}}" class="form-label">Выберите тег:</label>
+                    <label for="tag{{i}}" class="form-label">Напишите тег:</label>
                     <input class="form-control mb-1" id="tag{{i}}" name="tag{{i}}" formControlName="{{i}}">
                     <button type="button" class="btn btn-outline-danger" (click)="removeTagFromArray(i)">
                         - Удалить
@@ -62,7 +62,7 @@
                 </div>
                 <div *ngIf="form.get('tags')?.invalid && (form.get('tags')?.dirty || form.get('tags')?.touched)"
                     class="text-danger">
-                    Необходимо указать теги.
+                    Необходимо написать тег.
                 </div>
                 <button type="button" class="btn btn-success" (click)="addTagToArray()">
                     + Добавить
@@ -75,7 +75,7 @@
             <div class="mx-3" formArrayName="tagsExclude">
                 <div *ngFor="let control of getExcludeTagsFormsControls()['controls']; let i = index"
                     class="form-group mb-2">
-                    <label for="excludeTag{{i}}" class="form-label">Выберите тег:</label>
+                    <label for="excludeTag{{i}}" class="form-label">Напишите тег:</label>
                     <input class="form-control mb-1" id="excludeTag{{i}}" name="excludeTag{{i}}"
                         formControlName="{{i}}">
                     <button type="button" class="btn btn-outline-danger" (click)="removeExcludeTagFromArray(i)">
@@ -84,7 +84,7 @@
                 </div>
                 <div *ngIf="form.get('tagsExclude')?.invalid && (form.get('tagsExclude')?.dirty 
                         || form.get('tagsExclude')?.touched)" class="text-danger">
-                    Необходимо указать тег.
+                    Необходимо написать тег.
                 </div>
                 <button type="button" class="btn btn-success" (click)="addExcludeTagToArray()">
                     + Добавить
