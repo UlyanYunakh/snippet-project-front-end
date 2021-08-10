@@ -28,8 +28,7 @@ const routes: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: 'edit/:snippetId', component: EditSnippetComponent },
     { path: 'edit', component: EditSnippetComponent },
-    { path: '', redirectTo: '/feed/new', pathMatch: 'full' },
-    { path: '**', redirectTo: '/feed/new', pathMatch: 'full' }
+    { path: '**', redirectTo: '/feed/new' }
 ];
 
 @NgModule({
