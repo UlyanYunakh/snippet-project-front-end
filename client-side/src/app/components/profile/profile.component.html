@@ -1,1 +1,15 @@
-<p>profile works!</p>
+<app-auth ></app-auth>
+
+<div *ngIf="auth.user$ | async as user">
+    <p>Смотри чё учудил:</p>
+    <p>{{user.nickname}} - никнейм пользователя</p>
+    <p>{{user.name}} - имя</p>
+    <p>{{user.email}} - почта</p>
+    <img [src]="user.picture" class="rounded-circle"/>
+</div>
+
+<div>
+    <pre class="col-12 text-dark">
+        {{profileJson}}
+    </pre>
+</div>

@@ -26,6 +26,10 @@ import { FeedLangComponent } from './components/feed-lang/feed-lang.component';
 import { FeedTagsComponent } from './components/feed-tags/feed-tags.component';
 import { TagsListComponent } from './components/tags-list/tags-list.component';
 import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.component';
+import { AuthComponent } from './components/auth/auth.component';
+
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
     declarations: [
@@ -47,7 +51,8 @@ import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.com
         FeedLangComponent,
         FeedTagsComponent,
         TagsListComponent,
-        EditSnippetComponent
+        EditSnippetComponent,
+        AuthComponent
     ],
     imports: [
         BrowserModule,
@@ -55,7 +60,8 @@ import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.com
         HttpClientModule,
         HighlightModule,
         ReactiveFormsModule,
-        ClipboardModule
+        ClipboardModule,
+        AuthModule.forRoot({...environment.authConfig})
     ],
     providers: [
         {
