@@ -42,7 +42,7 @@ export class LangListComponent implements OnInit {
                 this.loadingState = false;
             },
             error => {
-                this.errorMessage = "Языки закончились :(";
+                this.errorMessage = error;
                 this.loadingState = false;
             }
         );

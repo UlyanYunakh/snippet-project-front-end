@@ -153,7 +153,7 @@ export class SearchComponent implements OnInit {
                 this.submittingState = false;
             },
             error => {
-                this.errorMessage = "Не удалось найти сниппеты, подходящие под критерии поиска."
+                this.errorMessage = error;
                 this.loadingState = false;
                 this.submittingState = false;
             }
