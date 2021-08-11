@@ -42,5 +42,6 @@ export class SnippetComponent implements OnInit {
 
     copyUrl() {
         this.clipboardApi.copyFromContent(`${location.href}`);
+        alert("Ссылка скопирована");
     }
 }
