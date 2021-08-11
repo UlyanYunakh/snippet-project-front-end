@@ -42,7 +42,7 @@ export class TagsListComponent implements OnInit {
                 this.loadingState = false;
             },
             error => {
-                this.errorMessage = "Теги кончились :(";
+                this.errorMessage = error;
                 this.loadingState = false;
             }
         );

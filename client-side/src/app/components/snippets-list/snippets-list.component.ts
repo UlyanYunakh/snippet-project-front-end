@@ -42,7 +42,7 @@ export class SnippetsListComponent implements OnInit {
                 this.loadingState = false;
             },
             error => {
-                this.errorMessage = "Сниппеты закончились :(";
+                this.errorMessage = error;
                 this.loadingState = false;
             }
         );
