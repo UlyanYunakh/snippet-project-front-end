@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule }   from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { environment } from 'src/environments/environment';
 
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { ClipboardModule } from 'ngx-clipboard';
+import { AuthModule } from '@auth0/auth0-angular';
+import { AuthHttpInterceptor } from "@auth0/auth0-angular";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
@@ -27,13 +31,6 @@ import { FeedTagsComponent } from './components/feed-tags/feed-tags.component';
 import { TagsListComponent } from './components/tags-list/tags-list.component';
 import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.component';
 import { AuthComponent } from './components/auth/auth.component';
-
-import { AuthModule } from '@auth0/auth0-angular';
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import {AuthHttpInterceptor} from "@auth0/auth0-angular";
-import { environment } from 'src/environments/environment';
-
-
 
 @NgModule({
     declarations: [
@@ -65,11 +62,16 @@ import { environment } from 'src/environments/environment';
         HighlightModule,
         ReactiveFormsModule,
         ClipboardModule,
-        AuthModule.forRoot({...environment.authConfig,
-          httpInterceptor:
+        AuthModule.forRoot({
+            ...environment.authConfig,
+            httpInterceptor:
             {
-              allowedList: [`${environment.authConfig.audience}snippet/create`]
-            }})
+                allowedList: [
+                    `${environment.authConfig.audience}snippet/create`,
+                    `${environment.authConfig.audience}snippet/update`
+                ]
+            }
+        })
     ],
     providers: [
         {
@@ -79,9 +81,9 @@ import { environment } from 'src/environments/environment';
             }
         },
         {
-          provide: HTTP_INTERCEPTORS,
-          useClass: AuthHttpInterceptor,
-          multi:true
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthHttpInterceptor,
+            multi: true
         }
     ],
     bootstrap: [AppComponent]
