@@ -9,22 +9,16 @@ import { User } from "@auth0/auth0-spa-js";
 export class ProfileComponent implements OnInit {
     public userInfo: User | null | undefined
     public isAuthenticated: boolean | undefined;
+    public loadingState: boolean | undefined;
 
     constructor(
         public auth: AuthService
     ) { }
 
     ngOnInit(): void {
+        this.getLoadingState();
         this.getAthentication();
         this.getUserInfo();
-    }
-
-    public getAthentication() {
-        this.auth.isAuthenticated$.subscribe(
-            auth => {
-                this.isAuthenticated = auth;
-            }
-        );
     }
 
     public getUserInfo() {
@@ -32,6 +26,30 @@ export class ProfileComponent implements OnInit {
             profile => {
                 this.userInfo = profile;
             }
-        )
+        );
+    }
+
+    public logout() {
+        this.auth.logout();
+    }
+
+    public login() {
+        this.auth.loginWithPopup();
+    }
+
+    private getAthentication() {
+        this.auth.isAuthenticated$.subscribe(
+            result => {
+                this.isAuthenticated = result;
+            }
+        );
+    }
+
+    private getLoadingState() {
+        this.auth.isLoading$.subscribe(
+            result => {
+                this.loadingState = result;
+            }
+        );
     }
 }

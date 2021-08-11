@@ -1,12 +1,29 @@
 <div class="offset-lg-2 col-lg-8">
-    <div *ngIf="isAuthenticated && userInfo">
-        <div class="p-2 m-2 bg-white rounded">
-            <div class="row">
+    <div *ngIf="!loadingState" class="p-2 m-2 bg-white rounded">
+        <div *ngIf="isAuthenticated">
+            <div *ngIf="userInfo" class="row mb-3">
                 <img [src]="userInfo.picture" class="col-3 col-lg-2 rounded-circle" />
-                <h3 class="col-9 col-lg-10">{{userInfo.nickname}}</h3>
+                <div class="col-9 col-lg-10 d-flex flex-column">
+                    <h3>
+                        {{userInfo.nickname}}
+                    </h3>
+                    <p>
+                        {{userInfo.email}}
+                    </p>
+                </div>
+            </div>
+            <div class="d-grid gap-2">
+                <button class="btn btn-outline-danger" (click)="logout()">
+                    Выйти
+                </button>
+            </div>
+        </div>
+        <div *ngIf="!isAuthenticated">
+            <div class="d-grid gap-2">
+                <button class="btn btn-success" (click)="login()">
+                    Авторизоваться
+                </button>
             </div>
         </div>
     </div>
-    
-    <app-auth></app-auth>
 </div>
