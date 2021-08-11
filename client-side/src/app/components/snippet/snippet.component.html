@@ -29,8 +29,12 @@
     <div class="d-flex flex-row flex-wrap">
         <button class="btn btn-outline-dark me-1" title='Скопировать ссылку на пост "{{snippet.title}}"'
             (click)="copyUrl()">Share</button>
-        <a class="btn btn-outline-dark" title='Редактировать пост "{{snippet.title}}"'
+        <a *ngIf="isOwner" class="btn btn-outline-secondary me-1" title='Редактировать пост "{{snippet.title}}"'
             [routerLink]="['/edit', snippet.id]">Edit</a>
+        <button *ngIf="isOwner" class="btn btn-outline-danger" title='Удалить пост "{{snippet.title}}"'
+            (click)="delete()">
+            Delete
+        </button>
         <div class="mx-2 ms-auto text">
             Likes: {{snippet.like}}
             <button class="btn btn-outline-dark" title='Поставить лайк посту "{{snippet.title}}"'>Like</button>
