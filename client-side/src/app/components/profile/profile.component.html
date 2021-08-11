@@ -1,20 +1,12 @@
-<app-auth ></app-auth>
-
-<div class="container" *ngIf="!(auth.isAuthenticated$ | async); else loggedIn"></div>
-
-
-<ng-template #loggedIn>
-  <div *ngIf="auth.user$ | async as user">
-    <p>Смотри чё учудил:</p>
-    <p>{{user.nickname}} - никнейм пользователя</p>
-    <p>{{user.name}} - имя</p>
-    <p>{{user.email}} - почта</p>
-    <img [src]="user.picture" class="rounded-circle"/>
-  </div>
-
-  <div>
-    <pre class="col-12 text-dark">
-        {{profileJson}}
-    </pre>
-  </div>
-</ng-template>
+<div class="offset-lg-2 col-lg-8">
+    <div *ngIf="isAuthenticated && userInfo">
+        <div class="p-2 m-2 bg-white rounded">
+            <div class="row">
+                <img [src]="userInfo.picture" class="col-3 col-lg-2 rounded-circle" />
+                <h3 class="col-9 col-lg-10">{{userInfo.nickname}}</h3>
+            </div>
+        </div>
+    </div>
+    
+    <app-auth></app-auth>
+</div>
