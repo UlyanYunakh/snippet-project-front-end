@@ -94,6 +94,30 @@ export class SearchComponent implements OnInit {
         return this.form!.controls["tagsExclude"] as FormArray;
     }
 
+    public addAuthorsToArray() {
+        (<FormArray>this.form!.controls["authors"]).push(new FormControl("", Validators.required));
+    }
+
+    public removeAuthorsFromArray(index: number) {
+        (<FormArray>this.form!.controls["authors"]).removeAt(index);
+    }
+
+    public getAuthorsFormsControls(): FormArray {
+        return this.form!.controls["authors"] as FormArray;
+    }
+
+    public addExcludeAuthorsToArray() {
+        (<FormArray>this.form!.controls["authorsExclude"]).push(new FormControl("", Validators.required));
+    }
+
+    public removeExcludeAuthorsFromArray(index: number) {
+        (<FormArray>this.form!.controls["authorsExclude"]).removeAt(index);
+    }
+
+    public getExcludeAuthorsFormsControls(): FormArray {
+        return this.form!.controls["authorsExclude"] as FormArray;
+    }
+
     public addCreationDateToGroup() {
         this.removeFromDateFromGroup();
         this.removeToDateFromGroup();
@@ -136,6 +160,8 @@ export class SearchComponent implements OnInit {
             "langsExclude": new FormArray([]),
             "tags": new FormArray([]),
             "tagsExclude": new FormArray([]),
+            "authors": new FormArray([]),
+            "authorsExclude": new FormArray([]),
             "page": new FormControl(this.currPage),
             "pageSize": new FormControl(10)
         });

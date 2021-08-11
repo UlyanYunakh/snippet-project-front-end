@@ -96,6 +96,49 @@
             </div>
 
             <div class="mb-3">
+                <h5 class="mb-3">Включить авторов:</h5>
+                <div class="mx-3" formArrayName="authors">
+                    <div class="form-group mb-2"
+                        *ngFor="let control of getAuthorsFormsControls()['controls']; let i = index">
+                        <label for="author{{i}}" class="form-label">Напишите имя автора:</label>
+                        <input class="form-control mb-1" id="author{{i}}" name="author{{i}}" formControlName="{{i}}">
+                        <button type="button" class="btn btn-outline-danger" (click)="removeAuthorsFromArray(i)">
+                            - Удалить
+                        </button>
+                    </div>
+                    <div *ngIf="form.get('authors')?.invalid && (form.get('authors')?.dirty || form.get('authors')?.touched)"
+                        class="text-danger">
+                        Необходимо написать имя автора.
+                    </div>
+                    <button type="button" class="btn btn-success" (click)="addAuthorsToArray()">
+                        + Добавить
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="mb-3">Исключить автора:</h5>
+                <div class="mx-3" formArrayName="authorsExclude">
+                    <div *ngFor="let control of getExcludeAuthorsFormsControls()['controls']; let i = index"
+                        class="form-group mb-2">
+                        <label for="excludeAuthor{{i}}" class="form-label">Напишите имя автора:</label>
+                        <input class="form-control mb-1" id="excludeAuthor{{i}}" name="excludeAuthor{{i}}"
+                            formControlName="{{i}}">
+                        <button type="button" class="btn btn-outline-danger" (click)="removeExcludeAuthorsFromArray(i)">
+                            - Удалить
+                        </button>
+                    </div>
+                    <div *ngIf="form.get('authorsExclude')?.invalid && (form.get('authorsExclude')?.dirty 
+            || form.get('authorsExclude')?.touched)" class="text-danger">
+                        Необходимо написать имя автора.
+                    </div>
+                    <button type="button" class="btn btn-success" (click)="addExcludeAuthorsToArray()">
+                        + Добавить
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-3">
                 <h5 class="mb-3">Дата публикации поста:</h5>
                 <div class="mx-3">
                     <button *ngIf="!form.get('creationDate')" type="button" class="btn btn-success"
