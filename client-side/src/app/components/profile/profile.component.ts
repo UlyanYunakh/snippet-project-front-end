@@ -61,28 +61,29 @@ export class ProfileComponent implements OnInit {
                 this.isAuthenticated = result;
 
                 if (this.isAuthenticated) {
-                    this.getUserInfo().subscribe(
-                        profile => {
-                            this.userInfo = profile;
-                            this.currPage = 1;
-                            this.shortSnippets = [];
-                            this.httpParams = new HttpParams({
-                                fromObject: {
-                                    authors: this.userInfo?.nickname!,
-                                    page: this.currPage!,
-                                    pageSize: 5
-                                }
-                            });
-                            this.getSnippets();
-                        }
-                    );
+                    this.getUserInfo();
                 }
             }
         );
     }
 
-
-    private getUserInfo(): Observable<any> {
-        return this.auth.user$;
+    private getUserInfo() {
+        return this.auth.user$.subscribe(
+            profile => {
+                if (!this.userInfo) {
+                    this.userInfo = profile;
+                    this.currPage = 1;
+                    this.shortSnippets = [];
+                    this.httpParams = new HttpParams({
+                        fromObject: {
+                            authors: this.userInfo?.nickname!,
+                            page: this.currPage!,
+                            pageSize: 5
+                        }
+                    });
+                    this.getSnippets();
+                }
+            }
+        );
     }
 }
