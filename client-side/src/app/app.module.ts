@@ -29,7 +29,11 @@ import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.com
 import { AuthComponent } from './components/auth/auth.component';
 
 import { AuthModule } from '@auth0/auth0-angular';
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthHttpInterceptor} from "@auth0/auth0-angular";
 import { environment } from 'src/environments/environment';
+
+
 
 @NgModule({
     declarations: [
@@ -61,7 +65,11 @@ import { environment } from 'src/environments/environment';
         HighlightModule,
         ReactiveFormsModule,
         ClipboardModule,
-        AuthModule.forRoot({...environment.authConfig})
+        AuthModule.forRoot({...environment.authConfig,
+          httpInterceptor:
+            {
+              allowedList: [`${environment.authConfig.audience}snippet/create`]
+            }})
     ],
     providers: [
         {
@@ -69,6 +77,11 @@ import { environment } from 'src/environments/environment';
             useValue: {
                 fullLibraryLoader: () => import('highlight.js')
             }
+        },
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: AuthHttpInterceptor,
+          multi:true
         }
     ],
     bootstrap: [AppComponent]
