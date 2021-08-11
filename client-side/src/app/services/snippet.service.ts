@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { catchError } from "rxjs/operators";
 import { Snippet } from "../models/Snippet";
 import { BaseService } from "./base.service";
 
@@ -23,10 +24,14 @@ export class SnippetService extends BaseService<Snippet> {
     }
 
     public create(snippet: any) {
-        return this.http.post<Snippet>(`${this.url}/${this.path}/create`, snippet);
+        return this.http.post<Snippet>(`${this.url}/${this.path}/create`, snippet).pipe(
+            catchError(this.HandleError)
+        );
     }
 
     public update(snippet: Snippet) {
-        return this.http.put<Snippet>(`${this.url}/${this.path}/update`, snippet);
+        return this.http.put<Snippet>(`${this.url}/${this.path}/update`, snippet).pipe(
+            catchError(this.HandleError)
+        );
     }
 }

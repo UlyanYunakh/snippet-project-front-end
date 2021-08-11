@@ -10,9 +10,6 @@ export class FeedTagsComponent implements OnInit {
     public links: SortLink[] | undefined;
     public tagName: string | undefined;
 
-    public isErrorOccured = false;
-    public errorMessage!: string;
-
     constructor(
         private route: ActivatedRoute
     ) { }

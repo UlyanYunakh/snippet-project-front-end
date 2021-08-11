@@ -94,7 +94,7 @@ export class EditSnippetComponent implements OnInit {
                 this.getLangs();
             },
             error => {
-                this.errorMessage = "Не удалось загрузить сниппет.";
+                this.errorMessage = error;
             }
         );
     }
@@ -132,7 +132,7 @@ export class EditSnippetComponent implements OnInit {
                 this.langs = responce;
             },
             error => {
-                this.errorMessage = "Не удалось загрузить языки.";
+                this.errorMessage = error;
             }
         );
     }
@@ -149,7 +149,7 @@ export class EditSnippetComponent implements OnInit {
                 this.submittingState = false;
             },
             error => {
-                this.errorMessage = "Не удалось обновить сниппет.";
+                this.errorMessage = error;
                 this.submittingState = false;
             }
         );
@@ -162,7 +162,7 @@ export class EditSnippetComponent implements OnInit {
                 this.submittingState = false;
             },
             error => {
-                this.errorMessage = "Не удалось опубликовать сниппет.";
+                this.errorMessage = error;
                 this.submittingState = false;
             }
         );
