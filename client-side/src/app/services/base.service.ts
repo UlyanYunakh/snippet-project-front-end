@@ -34,6 +34,15 @@ export abstract class BaseService<T> {
     }
 
     protected HandleError(error: HttpErrorResponse) {
-        return throwError("Ошибка! Попробуйте повторить попытку позже.");
+        switch (error.status) {
+            case 400:
+                return throwError("Неверные данные. Убедитесь, что данные введены верно.");
+            case 401:
+                return throwError("Нет доступа. Убедитесь, что вы авторизованы.");
+            case 404:
+                return throwError("Не удалось найти подходящий ресурс.");
+            default:
+                return throwError("Неизвестная ошибкаю Попробуйте повторить попытку позже.");
+        }
     }
 }
