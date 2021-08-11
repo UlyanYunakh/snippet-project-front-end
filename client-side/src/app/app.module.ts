@@ -30,7 +30,6 @@ import { FeedLangComponent } from './components/feed-lang/feed-lang.component';
 import { FeedTagsComponent } from './components/feed-tags/feed-tags.component';
 import { TagsListComponent } from './components/tags-list/tags-list.component';
 import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.component';
-import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
     declarations: [
@@ -52,8 +51,7 @@ import { AuthComponent } from './components/auth/auth.component';
         FeedLangComponent,
         FeedTagsComponent,
         TagsListComponent,
-        EditSnippetComponent,
-        AuthComponent
+        EditSnippetComponent
     ],
     imports: [
         BrowserModule,
