@@ -66,7 +66,9 @@ import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.com
             {
                 allowedList: [
                     `${environment.authConfig.audience}snippet/create`,
-                    `${environment.authConfig.audience}snippet/update`
+                    `${environment.authConfig.audience}snippet/update`,
+                    `${environment.authConfig.audience}is-owner/*`,
+                    `${environment.authConfig.audience}snippet/delete/*`
                 ]
             }
         })
