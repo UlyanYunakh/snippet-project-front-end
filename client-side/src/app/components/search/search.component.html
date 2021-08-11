@@ -223,6 +223,30 @@
                 </div>
             </div>
 
+            <div class="mb-3">
+                <h5 class="mb-3">Способ отображения:</h5>
+                <div class="mx-3">
+                    <button *ngIf="!form.get('sortOption')" type="button" class="btn btn-success"
+                        (click)="addSortOptionToGroup()">
+                        + Добавить
+                    </button>
+                    <div *ngIf="form.get('sortOption')">
+                        <label for="sortOption" class="form-label">Выберите способ отображения:</label>
+                        <select class="form-select mb-1" id="sortOption" name="sortOption" formControlName="sortOption">
+                            <option value="popular">Сначала популярные</option>
+                            <option value="new">Сначала новые</option>
+                        </select>
+                        <div *ngIf="form.get('sortOption')?.invalid && (form.get('sortOption')?.dirty || form.get('sortOption')?.touched)"
+                            class="text-danger">
+                            Необходимо указать способ отображения.
+                        </div>
+                        <button type="button" class="btn btn-outline-danger" (click)="removeSortOptionFromGroup()">
+                            - Удалить
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div *ngIf="!submittingState">
                 <button class="btn btn-dark" type="submit" [disabled]="form.invalid">Найти</button>
             </div>

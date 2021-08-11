@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
     public errorMessage: string | undefined;
     public loadingState = false;
     public submittingState = false;
-    
+
     private currPage: number | undefined;
     private httpParams: HttpParams | undefined;
 
@@ -152,6 +152,14 @@ export class SearchComponent implements OnInit {
 
     public removeMatchStringFromGroup() {
         this.form?.removeControl("matchString");
+    }
+
+    public addSortOptionToGroup() {
+        this.form?.addControl("sortOption", new FormControl("", Validators.required));
+    }
+
+    public removeSortOptionFromGroup() {
+        this.form?.removeControl("sortOption");
     }
 
     private createBasicForm() {
