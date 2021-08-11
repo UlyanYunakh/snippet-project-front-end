@@ -21,11 +21,11 @@ export class AuthComponent implements OnInit {
 
   logout() : void
   {
-    this.auth.logout({returnTo: this.document.location.origin});
+      this.auth.logout({returnTo: this.document.location.origin})
   }
 
   isAuthenticated() : Observable<boolean>
   {
     return this.auth.isAuthenticated$;
-  }  
+  }
 }

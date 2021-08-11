@@ -7,7 +7,7 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  
+
   profileJson : string | null = null;
 
   constructor(public auth: AuthService ) { }
@@ -19,6 +19,11 @@ export class ProfileComponent implements OnInit {
         console.log(this.profileJson);
       }
     )
+  }
+
+  isAuthenticated()
+  {
+
   }
 
 }
