@@ -42,7 +42,7 @@ export abstract class BaseService<T> {
             case 404:
                 return throwError("Не удалось найти подходящий ресурс.");
             default:
-                return throwError("Неизвестная ошибкаю Попробуйте повторить попытку позже.");
+                return throwError("Сервер не отвечает. Попробуйте повторить попытку позже.");
         }
     }
 }
