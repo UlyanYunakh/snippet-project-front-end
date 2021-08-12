@@ -1,0 +1,8 @@
+<div class="p-2 m-2 bg-white rounded">
+    <div class="d-flex flex-column">
+        <a class="m-1 p-1 link" *ngFor="let link of links" [routerLink]="link.optionLink"
+            title='Перейти на страницу "{{link.optionName}}"' routerLinkActive="link_active">
+            {{link.optionName}}
+        </a>
+    </div>
+</div>

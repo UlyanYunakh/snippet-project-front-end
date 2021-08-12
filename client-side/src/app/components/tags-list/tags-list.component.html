@@ -1,0 +1,22 @@
+<div class="p-2 m-2 bg-white rounded d-flex flex-row flex-wrap">
+    <a class="link m-1 p-1" title='Перейти к тегу "{{tag.name}}"' *ngFor="let tag of tags" [routerLink]="['/tags', tag.name]">
+        {{tag.name}}
+    </a>
+</div>
+<div *ngIf="errorMessage">
+    <div class="p-2 m-2 bg-white rounded">
+        <p class="text-danger">
+            {{errorMessage}}
+        </p>
+    </div>
+</div>
+<div *ngIf="!loadingState" class="d-flex flex-column align-items-center">
+    <button class="btn btn-outline-dark" (click)="getTags()">
+        Загрузить ещё
+    </button>
+</div>
+<div *ngIf="loadingState" class="d-flex flex-column align-items-center">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
