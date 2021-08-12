@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
     public errorMessage: string | undefined;
     public loadingState = false;
     public submittingState = false;
-    
+
     private currPage: number | undefined;
     private httpParams: HttpParams | undefined;
 
@@ -94,6 +94,30 @@ export class SearchComponent implements OnInit {
         return this.form!.controls["tagsExclude"] as FormArray;
     }
 
+    public addAuthorsToArray() {
+        (<FormArray>this.form!.controls["authors"]).push(new FormControl("", Validators.required));
+    }
+
+    public removeAuthorsFromArray(index: number) {
+        (<FormArray>this.form!.controls["authors"]).removeAt(index);
+    }
+
+    public getAuthorsFormsControls(): FormArray {
+        return this.form!.controls["authors"] as FormArray;
+    }
+
+    public addExcludeAuthorsToArray() {
+        (<FormArray>this.form!.controls["authorsExclude"]).push(new FormControl("", Validators.required));
+    }
+
+    public removeExcludeAuthorsFromArray(index: number) {
+        (<FormArray>this.form!.controls["authorsExclude"]).removeAt(index);
+    }
+
+    public getExcludeAuthorsFormsControls(): FormArray {
+        return this.form!.controls["authorsExclude"] as FormArray;
+    }
+
     public addCreationDateToGroup() {
         this.removeFromDateFromGroup();
         this.removeToDateFromGroup();
@@ -130,12 +154,22 @@ export class SearchComponent implements OnInit {
         this.form?.removeControl("matchString");
     }
 
+    public addSortOptionToGroup() {
+        this.form?.addControl("sortOption", new FormControl("", Validators.required));
+    }
+
+    public removeSortOptionFromGroup() {
+        this.form?.removeControl("sortOption");
+    }
+
     private createBasicForm() {
         this.form = new FormGroup({
             "langs": new FormArray([]),
             "langsExclude": new FormArray([]),
             "tags": new FormArray([]),
             "tagsExclude": new FormArray([]),
+            "authors": new FormArray([]),
+            "authorsExclude": new FormArray([]),
             "page": new FormControl(this.currPage),
             "pageSize": new FormControl(10)
         });

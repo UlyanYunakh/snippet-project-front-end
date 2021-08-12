@@ -17,5 +17,6 @@ export class ShortSnippetComponent {
 
     copyUrl(langName:string, snippetId: number) {
         this.clipboardApi.copyFromContent(`${this.baseURL}/langs/${langName}/${snippetId}`);
+        alert("Ссылка скопирована");
     }
 }

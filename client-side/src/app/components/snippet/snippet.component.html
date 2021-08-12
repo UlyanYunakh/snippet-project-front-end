@@ -28,7 +28,7 @@
     </div>
     <div class="d-flex flex-row flex-wrap">
         <button class="btn btn-outline-dark me-1" title='Скопировать ссылку на пост "{{snippet.title}}"'
-            (click)="copyUrl()">Share</button>
+            (click)="copyUrl()">Copy link</button>
         <a *ngIf="isOwner" class="btn btn-outline-secondary me-1" title='Редактировать пост "{{snippet.title}}"'
             [routerLink]="['/edit', snippet.id]">Edit</a>
         <button *ngIf="isOwner" class="btn btn-outline-danger" title='Удалить пост "{{snippet.title}}"'
