@@ -37,7 +37,8 @@
         </button>
         <div class="mx-2 ms-auto text">
             Likes: {{snippet.like}}
-            <button class="btn btn-outline-dark" title='Поставить лайк посту "{{snippet.title}}"'>Like</button>
+            <button class="btn btn-outline-dark" title='Поставить лайк посту "{{snippet.title}}"'
+                (click)="like()">Like</button>
         </div>
     </div>
 </div>

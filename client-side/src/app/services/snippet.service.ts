@@ -48,4 +48,11 @@ export class SnippetService extends BaseService<Snippet> {
             catchError(this.HandleError)
         );
     }
+
+    public like(snippetId:string) {
+        return this.http.post(`${this.url}/like-snippet/${snippetId}`, "null").pipe(
+            retry(3),
+            catchError(this.HandleError)
+        );
+    }
 }

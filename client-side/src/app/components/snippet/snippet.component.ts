@@ -55,6 +55,19 @@ export class SnippetComponent implements OnInit {
         );
     }
 
+    public like() {
+        this.service.like(this.snippetId!).subscribe(
+            responce => {
+                if (responce) {
+                    this.snippet!.like++;
+                }
+                else {
+                    this.snippet!.like--;
+                }
+            }
+        );
+    }
+
     public copyUrl() {
         this.clipboardApi.copyFromContent(`${location.href}`);
     }
