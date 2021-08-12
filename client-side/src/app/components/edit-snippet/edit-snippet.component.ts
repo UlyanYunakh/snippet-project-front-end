@@ -46,6 +46,7 @@ export class EditSnippetComponent implements OnInit {
 
     public submit() {
         this.submittingState = true;
+        this.errorMessage = undefined;
 
         if (this.snippet) {
             this.updateSnippet();
