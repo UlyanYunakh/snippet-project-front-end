@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  urlApi: "http://localhost:5000",
+  urlApi: "https://snippet-share-api.azurewebsites.net",
   authConfig: {
       domain: "snippetshare.eu.auth0.com",
       clientId: "QNXZMRVESsbPlWdiAnXSh8nGHST2n5XJ",
-      audience: "http://localhost:5000/",
+      audience: "https://snippet-share-api.azurewebsites.net/",
       redirectUri : window.location.origin
   }
 };

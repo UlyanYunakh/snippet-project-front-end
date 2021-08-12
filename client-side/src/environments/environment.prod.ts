@@ -1,9 +1,10 @@
 export const environment = {
-  production: true,
-  urlApi: "https://localhost:5001",
+  production: false,
+  urlApi: "https://snippet-share-api.azurewebsites.net",
   authConfig: {
-    domain: "snippetshare.eu.auth0.com",
-    clientId: "QNXZMRVESsbPlWdiAnXSh8nGHST2n5XJ",
-    redirectUri : window.location.origin
-}
+      domain: "snippetshare.eu.auth0.com",
+      clientId: "QNXZMRVESsbPlWdiAnXSh8nGHST2n5XJ",
+      audience: "https://snippet-share-api.azurewebsites.net/",
+      redirectUri : window.location.origin
+  }
 };
