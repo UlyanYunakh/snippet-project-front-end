@@ -55,4 +55,11 @@ export class SnippetService extends BaseService<Snippet> {
             catchError(this.HandleError)
         );
     }
+
+    public getLike(snippetId:string) {
+        return this.http.get<boolean>(`${this.url}/liked-by/${snippetId}`).pipe(
+            retry(3),
+            catchError(this.HandleError)
+        );
+    }
 }

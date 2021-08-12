@@ -15,8 +15,8 @@ export class SnippetComponent implements OnInit {
     public snippetId: string | undefined;
     public errorMessage: string | undefined;
     public isOwner: boolean | undefined;
-
-    private isAuthenticated: boolean | undefined;
+    public isAuthenticated: boolean | undefined;
+    public isLiked: boolean | undefined;
 
     constructor(
         private service: SnippetService,
@@ -58,10 +58,13 @@ export class SnippetComponent implements OnInit {
     public like() {
         this.service.like(this.snippetId!).subscribe(
             responce => {
+                console.log(responce);
                 if (responce) {
+                    this.isLiked = true;
                     this.snippet!.like++;
                 }
                 else {
+                    this.isLiked = false;
                     this.snippet!.like--;
                 }
             }
@@ -76,14 +79,23 @@ export class SnippetComponent implements OnInit {
         this.auth.isAuthenticated$.subscribe(
             result => {
                 this.isAuthenticated = result;
-                
+
                 if (this.isAuthenticated) {
                     this.service.owner(this.snippetId!).subscribe(
                         responce => {
                             this.isOwner = responce;
                         }
                     );
+                    this.getLike();
                 }
+            }
+        );
+    }
+
+    private getLike() {
+        this.service.getLike(this.snippetId!).subscribe(
+            responce => {
+                this.isLiked = responce;
             }
         );
     }

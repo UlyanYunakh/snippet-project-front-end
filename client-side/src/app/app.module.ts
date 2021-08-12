@@ -69,7 +69,8 @@ import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.com
                     `${environment.authConfig.audience}snippet/update`,
                     `${environment.authConfig.audience}is-owner/*`,
                     `${environment.authConfig.audience}snippet/delete/*`,
-                    `${environment.authConfig.audience}like-snippet/*`
+                    `${environment.authConfig.audience}like-snippet/*`,
+                    `${environment.authConfig.audience}liked-by/*`,
                 ]
             }
         })
