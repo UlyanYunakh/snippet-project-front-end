@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule }   from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { environment } from 'src/environments/environment';
 
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { ClipboardModule } from 'ngx-clipboard';
+import { AuthModule } from '@auth0/auth0-angular';
+import { AuthHttpInterceptor } from "@auth0/auth0-angular";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
@@ -55,7 +59,21 @@ import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.com
         HttpClientModule,
         HighlightModule,
         ReactiveFormsModule,
-        ClipboardModule
+        ClipboardModule,
+        AuthModule.forRoot({
+            ...environment.authConfig,
+            httpInterceptor:
+            {
+                allowedList: [
+                    `${environment.authConfig.audience}snippet/create`,
+                    `${environment.authConfig.audience}snippet/update`,
+                    `${environment.authConfig.audience}is-owner/*`,
+                    `${environment.authConfig.audience}snippet/delete/*`,
+                    `${environment.authConfig.audience}like-snippet/*`,
+                    `${environment.authConfig.audience}liked-by/*`,
+                ]
+            }
+        })
     ],
     providers: [
         {
@@ -63,6 +81,11 @@ import { EditSnippetComponent } from './components/edit-snippet/edit-snippet.com
             useValue: {
                 fullLibraryLoader: () => import('highlight.js')
             }
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthHttpInterceptor,
+            multi: true
         }
     ],
     bootstrap: [AppComponent]

@@ -34,13 +34,19 @@ export abstract class BaseService<T> {
     }
 
     protected HandleError(error: HttpErrorResponse) {
+        switch (error.message) {
+            case "Login required":
+                return throwError("Нет доступа. Убедитесь, что вы авторизованы.");
+        }
         switch (error.status) {
             case 400:
                 return throwError("Неверные данные. Убедитесь, что данные введены верно.");
             case 401:
-                return throwError("Нет доступа. Убедитесь, что вы авторизованы.");
+                return throwError("Сервер отказал вам в доступе.");
             case 404:
                 return throwError("Не удалось найти подходящий ресурс.");
+            case 422:
+                return throwError("Сервер не смог обработать данные.");
             default:
                 return throwError("Сервер не отвечает. Попробуйте повторить попытку позже.");
         }

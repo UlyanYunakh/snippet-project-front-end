@@ -10,6 +10,7 @@ import { SearchComponent } from './components/search/search.component';
 import { SnippetComponent } from './components/snippet/snippet.component';
 import { TagsComponent } from './components/tags/tags.component';
 
+
 const routes: Routes = [
     { path: 'feed/:sortOption', component: FeedComponent },
 
@@ -25,9 +26,9 @@ const routes: Routes = [
     { path: 'tags', component: TagsComponent },
 
     { path: 'search', component: SearchComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'edit/:snippetId', component: EditSnippetComponent },
-    { path: 'edit', component: EditSnippetComponent },
+    { path: 'profile', component: ProfileComponent},
+    { path: 'edit/:snippetId', component: EditSnippetComponent},
+    { path: 'edit', component: EditSnippetComponent},
     { path: '**', redirectTo: '/feed/new' }
 ];
 
