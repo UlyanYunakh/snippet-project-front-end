@@ -37,9 +37,12 @@
         </button>
         <div class="mx-2 ms-auto text">
             Likes: {{snippet.like}}
-            <button *ngIf="isAuthenticated" class="btn btn-outline-dark"
+            <button *ngIf="isAuthenticated && !LikingState" class="btn btn-outline-dark"
                 title='Поставить лайк посту "{{snippet.title}}"' [ngClass]="{ 'active' : isLiked }"
                 (click)="like()">Like</button>
+            <div *ngIf="isAuthenticated && LikingState" class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
     </div>
 </div>

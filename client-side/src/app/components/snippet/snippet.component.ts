@@ -17,6 +17,7 @@ export class SnippetComponent implements OnInit {
     public isOwner: boolean | undefined;
     public isAuthenticated: boolean | undefined;
     public isLiked: boolean | undefined;
+    public LikingState = false;
 
     constructor(
         private service: SnippetService,
@@ -56,16 +57,20 @@ export class SnippetComponent implements OnInit {
     }
 
     public like() {
+        this.LikingState = true;
+
         this.service.like(this.snippetId!).subscribe(
             responce => {
                 console.log(responce);
                 if (responce) {
                     this.isLiked = true;
                     this.snippet!.like++;
+                    this.LikingState = false;
                 }
                 else {
                     this.isLiked = false;
                     this.snippet!.like--;
+                    this.LikingState = false;
                 }
             }
         );
