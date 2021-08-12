@@ -1,7 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Lang } from 'src/app/models/Lang';
 import { Snippet } from 'src/app/models/Snippet';
 import { LangService } from 'src/app/services/lang.service';
@@ -22,7 +22,8 @@ export class EditSnippetComponent implements OnInit {
     constructor(
         private langService: LangService,
         private snippetService: SnippetService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -145,8 +146,8 @@ export class EditSnippetComponent implements OnInit {
 
         this.snippetService.update(this.snippet!).subscribe(
             responce => {
-                // do something with responce
                 this.submittingState = false;
+                this.router.navigate([`langs/${responce.language.extraName}/${responce.id}`]);
             },
             error => {
                 this.errorMessage = error;
@@ -158,8 +159,8 @@ export class EditSnippetComponent implements OnInit {
     private submitNewSnippet() {
         this.snippetService.create(this.form!.getRawValue()).subscribe(
             responce => {
-                // do something with responce
                 this.submittingState = false;
+                this.router.navigate([`langs/${responce.language.extraName}/${responce.id}`]);
             },
             error => {
                 this.errorMessage = error;
